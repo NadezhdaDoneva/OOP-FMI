@@ -101,7 +101,7 @@ SafeAnswer averagePrice(const char* catalogName) {
 SafeAnswer getMoviePrice(const char* catalogName, const char* movieName) {
     SafeAnswer answer;
     //open file
-    std::fstream file(catalogName);
+    std::ifstream file(catalogName);
 
     //check if the file can be opened
     if (!file.is_open()) {
@@ -124,8 +124,10 @@ SafeAnswer getMoviePrice(const char* catalogName, const char* movieName) {
     int tempMoviePrice;
     while (!file.eof()) {
         file >> tempMovieName >> tempMoviePrice;
-        if (strcmp(tempMovieName, movieName) == 0)
+        if (strcmp(tempMovieName, movieName) == 0) {
             answer.number = tempMoviePrice;
+            break;
+        }
     }
 
     //check if movie is not in the catalog
@@ -164,28 +166,18 @@ void freeMoviesFromArray(Movie*& moviesArray) {
 
 //5
 void sortMoviesInArray(Movie*& moviesArray, int numberOfMovies) {
-    //make array of the prices and fill it
-    unsigned int* prices = new unsigned int[numberOfMovies];
-    for (size_t i = 0; i < numberOfMovies; i++) {
-        prices[i] = moviesArray[i].price;
-    }
-
     //selection sort for prices array and swapping in the movie array in the same time
     for (size_t i = 0; i < numberOfMovies - 1; i++) {
         int minPriceIdx = i;
         for (size_t j = i; j < numberOfMovies; j++)
         {
-            if (prices[j] < prices[minPriceIdx])
+            if (moviesArray[j].price < moviesArray[minPriceIdx].price)
                 minPriceIdx = j;
         }
         if (minPriceIdx != i) {
-            std::swap(prices[i], prices[minPriceIdx]);
             std::swap(moviesArray[i], moviesArray[minPriceIdx]);
         }
     }
-
-    //deallocate memory
-    delete[] prices;
 }
 
 //6
