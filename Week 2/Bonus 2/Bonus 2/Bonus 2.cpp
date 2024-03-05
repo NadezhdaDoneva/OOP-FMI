@@ -33,7 +33,6 @@ SafeAnswer getNumberOfMovies(const char* catalogName) {
     //check if the file can be opened
     if (!file.is_open()) {
         answer.error = ErrorInCatalog::catalog_not_open;
-        std::cout << "Can't oppen the file catalog";
         return answer;
     }
 
@@ -48,7 +47,6 @@ SafeAnswer getNumberOfMovies(const char* catalogName) {
     //check if the file is empty
     if (isEmpty) {
         answer.error = ErrorInCatalog::read_from_empty_catalog;
-        std::cout << "Reading from empty catalog";
         file.close();
         return answer;
     }
@@ -68,7 +66,6 @@ SafeAnswer averagePrice(const char* catalogName) {
     //check if the file can be opened
     if (!file.is_open()) {
         answer.error = ErrorInCatalog::catalog_not_open;
-        std::cout << "Can't oppen the file catalog";
         return answer;
     }
 
@@ -76,7 +73,6 @@ SafeAnswer averagePrice(const char* catalogName) {
     int countOfMovies = getNumberOfMovies(catalogName).number;
     if (countOfMovies == 0) {
         answer.error = ErrorInCatalog::read_from_empty_catalog;
-        std::cout << "Reading from empty catalog";
         file.close();
         return answer;
     }
@@ -106,7 +102,6 @@ SafeAnswer getMoviePrice(const char* catalogName, const char* movieName) {
     //check if the file can be opened
     if (!file.is_open()) {
         answer.error = ErrorInCatalog::catalog_not_open;
-        std::cout << "Can't oppen the file catalog";
         return answer;
     }
 
@@ -114,7 +109,6 @@ SafeAnswer getMoviePrice(const char* catalogName, const char* movieName) {
     unsigned countOfMovies = getNumberOfMovies(catalogName).number;
     if (countOfMovies == 0) {
         answer.error = ErrorInCatalog::read_from_empty_catalog;
-        std::cout << "Reading from empty catalog";
         file.close();
         return answer;
     }
@@ -133,7 +127,6 @@ SafeAnswer getMoviePrice(const char* catalogName, const char* movieName) {
     //check if movie is not in the catalog
     if (answer.number == 0) {
         answer.error = ErrorInCatalog::movie_not_in_catalog;
-        std::cout << "The movie is not in the catalog";
         file.close();
         return answer;
     }
@@ -188,14 +181,12 @@ ErrorInCatalog saveMoviesSorted(const char* catalogName, const char* catalogSort
 
     //check if the files can be opened
     if (!firstFile.is_open() || !secondFile.is_open()) {
-        std::cout << "Can't oppen some of the file catalogs";
         return ErrorInCatalog::catalog_not_open;
     }
 
     //check if the file is empty
     unsigned countOfMovies = getNumberOfMovies(catalogName).number;
     if (countOfMovies == 0) {
-        std::cout << "Reading from empty catalog";
         firstFile.close();
         return ErrorInCatalog::read_from_empty_catalog;
     }
