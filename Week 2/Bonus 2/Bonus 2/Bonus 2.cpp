@@ -60,30 +60,6 @@ SafeAnswer getNumberOfMovies(const char* catalogName) {
 }
 
 //2
-int convertCharToDigit(char ch)
-{
-    if (ch >= '0' && ch <= '9')
-        return ch - '0';
-    return -1;
-}
-
-unsigned convertStrToUnsigned(const char* str)
-{
-    if (!str)
-        return 0;
-
-    unsigned result = 0;
-    while (*str)
-    {
-        int digit = convertCharToDigit(*str);
-        if (digit == -1)
-            return 0;
-        (result *= 10) += digit;
-        str++;
-    }
-    return result;
-}
-
 SafeAnswer averagePrice(const char* catalogName) {
     SafeAnswer answer;
     //open the file
@@ -108,10 +84,10 @@ SafeAnswer averagePrice(const char* catalogName) {
     //average price logic
     unsigned int sumOfPrices = 0;
     char tempMovieName[1024];
-    char tempMoviePrice[1024];
+    int tempMoviePrice;
     while (!file.eof()) {
         file >> tempMovieName >> tempMoviePrice;
-        sumOfPrices += convertStrToUnsigned(tempMoviePrice);
+        sumOfPrices += tempMoviePrice;
     }
 
     //else no error occurred and return answer
@@ -145,11 +121,11 @@ SafeAnswer getMoviePrice(const char* catalogName, const char* movieName) {
 
     //find movie price logic
     char tempMovieName[1024];
-    char tempMoviePrice[1024];
+    int tempMoviePrice;
     while (!file.eof()) {
         file >> tempMovieName >> tempMoviePrice;
         if (strcmp(tempMovieName, movieName) == 0)
-            answer.number = convertStrToUnsigned(tempMoviePrice);
+            answer.number = tempMoviePrice;
     }
 
     //check if movie is not in the catalog
@@ -171,12 +147,12 @@ Movie* saveMoviesInArray(std::ifstream& file, int numberOfMovies) {
     Movie* moviesArr = new Movie[numberOfMovies];
     
     char tempMovieName[1024];
-    char tempMoviePrice[1024];
+    int tempMoviePrice;
     int idx = 0;
     while (idx < numberOfMovies) {
         file >> tempMovieName >> tempMoviePrice;
         strcpy_s(moviesArr[idx].name, tempMovieName);
-        moviesArr[idx].price = convertStrToUnsigned(tempMoviePrice);
+        moviesArr[idx].price = tempMoviePrice;
         idx++;
     }
     return moviesArr;
