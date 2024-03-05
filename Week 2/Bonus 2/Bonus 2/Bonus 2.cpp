@@ -40,8 +40,7 @@ SafeAnswer getNumberOfMovies(const char* catalogName) {
     //count lines
     bool isEmpty = true;
     char tempLine[1024];
-    while (!file.eof()) {
-        file.getline(tempLine, 1024);
+    while (file.getline(tempLine, 1024)) {
         answer.number++;
         isEmpty = false;
     }
@@ -97,23 +96,22 @@ SafeAnswer averagePrice(const char* catalogName) {
         return answer;
     }
 
-    //average price logic
-    int countOfMovies = 0;
-    unsigned int sumOfPrices = 0;
-    char tempMovieName[1024];
-    char tempMoviePrice[1024];
-    while (!file.eof()) {
-        file >> tempMovieName >> tempMoviePrice;
-        countOfMovies++;
-        sumOfPrices += convertStrToUnsigned(tempMoviePrice);
-    }
-
     //check if the file is empty
+    int countOfMovies = getNumberOfMovies(catalogName).number;
     if (countOfMovies == 0) {
         answer.error = ErrorInCatalog::read_from_empty_catalog;
         std::cout << "Reading from empty catalog";
         file.close();
         return answer;
+    }
+
+    //average price logic
+    unsigned int sumOfPrices = 0;
+    char tempMovieName[1024];
+    char tempMoviePrice[1024];
+    while (!file.eof()) {
+        file >> tempMovieName >> tempMoviePrice;
+        sumOfPrices += convertStrToUnsigned(tempMoviePrice);
     }
 
     //else no error occurred and return answer
