@@ -159,7 +159,7 @@ void freeMoviesFromArray(Movie*& moviesArray) {
 
 //5
 void sortMoviesInArray(Movie*& moviesArray, int numberOfMovies) {
-    //selection sort for prices array and swapping in the movie array in the same time
+    //selection sort for prices
     for (size_t i = 0; i < numberOfMovies - 1; i++) {
         int minPriceIdx = i;
         for (size_t j = i; j < numberOfMovies; j++)
