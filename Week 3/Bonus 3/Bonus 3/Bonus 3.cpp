@@ -56,12 +56,12 @@ void savePokemonInBinaryFile(const char* fileName, const Pokemon& pokemon, int s
 
 //4
 struct PokemonHandler {
-    const char* file;
+    char* file;
 };
 
 PokemonHandler newPokemonHandler(const char* filename) {
     PokemonHandler pokemonHandler;
-    pokemonHandler.file = filename;
+    strcpy(pokemonHandler.file, filename);
     return pokemonHandler;
 }
 
