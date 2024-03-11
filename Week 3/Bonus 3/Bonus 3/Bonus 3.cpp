@@ -122,9 +122,6 @@ void swap(const PokemonHandler& ph, int i, int j) {
 
 //8
 void swapPokemons(const PokemonHandler& ph, const int i, const int j) {
-    if (!isValidIdx(i, ph) || !isValidIdx(j, ph)) {
-        break;
-    }
 
     Pokemon p1 = at(ph, i);
     Pokemon p2 = at(ph, j);
@@ -136,9 +133,8 @@ void swapPokemons(const PokemonHandler& ph, const int i, const int j) {
 void insert(const PokemonHandler& ph, const Pokemon& pokemon) {
     size_t idx = size(ph);
     savePokemonInBinaryFile(ph.file, pokemon, idx);
-    Pokemon curPokemon = at(ph, idx--);
 
-    while (idx >= 0 && at(ph, idx).strength < at(ph, idx - 1).strength) {
+    while (idx > 0 && at(ph, idx).strength < at(ph, idx - 1).strength) {
         swap(ph, idx, idx - 1);
         idx--;
     }
