@@ -137,10 +137,10 @@ void insert(const PokemonHandler& ph, const Pokemon& pokemon) {
     size_t idx = size(ph);
     savePokemonInBinaryFile(ph.file, pokemon, idx);
     Pokemon curPokemon = at(ph, idx--);
-    
-    while (curPokemon.strength > pokemon.strength) {
-        swapPokemons(ph, idx, idx - 1);
-        curPokemon = at(ph, idx--);
+
+    while (idx >= 0 && at(ph, idx).strength < at(ph, idx - 1).strength) {
+        swap(ph, idx, idx - 1);
+        idx--;
     }
 }
 
