@@ -37,7 +37,6 @@ Pokemon createPokemonFromBinaryFile(std::ifstream& ifs) {
     Pokemon pokemon;
     ifs.read((char*)&pokemon, sizeof(pokemon));
 
-    ifs.close();
     return pokemon;
 }
 
@@ -122,20 +121,27 @@ void swap(const PokemonHandler& ph, int i, int j) {
 }
 
 //8
-void insert(const PokemonHandler& ph, const Pokemon& pokemon) {
-    size_t idx = 1;
-    Pokemon curPokemon = at(ph, idx);
-    while (curPokemon.strength < pokemon.strength)
-    {
-        idx++;
-        Pokemon curPokemon = at(ph, idx);
+void swapPokemons(const PokemonHandler& ph, const int i, const int j) {
+    if (!isValidIdx(i, ph) || !isValidIdx(j, ph)) {
+        break;
     }
-    for (size_t i = size(ph) + 1; i > idx + 1; i--)
-    {
-        savePokemonInBinaryFile(ph.file, pokemon, i * sizeof(Pokemon));
-    }
-    savePokemonInBinaryFile(ph.file, pokemon, idx * sizeof(Pokemon));
 
+    Pokemon p1 = at(ph, i);
+    Pokemon p2 = at(ph, j);
+
+    savePokemonInBinaryFile(ph.file, p1, j * sizeof(Pokemon));
+    savePokemonInBinaryFile(ph.file, p2, i * sizeof(Pokemon));
+}
+
+void insert(const PokemonHandler& ph, const Pokemon& pokemon) {
+    size_t idx = size(ph);
+    savePokemonInBinaryFile(ph.file, pokemon, idx);
+    Pokemon curPokemon = at(ph, idx--);
+    
+    while (curPokemon.strength > pokemon.strength) {
+        swapPokemons(ph, idx, idx - 1);
+        curPokemon = at(ph, idx--);
+    }
 }
 
 //9
