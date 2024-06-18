@@ -9,10 +9,10 @@ bool User::isValidPassword(const MyString& pass) const
 	return pass == password;
 }
 
-//void User::whoami() {
-//	std::cout << "You are " << username << ".\n";
-//}
-//
-//void User::help() {
-//	//cout the commands list
-//}
+void User::whoami() {
+	std::cout << "You are " << username << ".\n";
+}
+
+void User::help() {
+	//cout the commands list
+}

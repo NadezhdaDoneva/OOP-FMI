@@ -2,9 +2,11 @@
 //
 
 #include <iostream>
+#include "Client.h"
 
 int main()
 {
-    
+    Client cl = Client("Ivan", "12", 23, "12");
+    cl.whoami();
 }
 

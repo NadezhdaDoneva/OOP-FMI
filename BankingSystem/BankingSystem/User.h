@@ -7,8 +7,8 @@ public:
 	User() = default;
 
 	bool isValidPassword(const MyString& pass) const;
-	/*void whoami();
-	void help();*/
+	void whoami();
+	void help();
 protected:
 	MyString username = "Unknown";
 	MyString egn = "Unknown";
