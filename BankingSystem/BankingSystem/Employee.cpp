@@ -7,6 +7,6 @@ int Employee::getTasksCount() const {
 	return tasks.getSize();
 }
 
-User* Employee::clone() const {
-	return new Employee(*this);
-}
+//User* Employee::clone() const {
+//	return new Employee(*this);
+//}

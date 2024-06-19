@@ -3,5 +3,7 @@
 
 class ThirdParty : public User {
 public:
-	User* clone() const override;
+	ThirdParty() = default;
+	ThirdParty(const MyString& username, const MyString& egn, unsigned age, const MyString& password);
+	//User* clone() const override;
 };

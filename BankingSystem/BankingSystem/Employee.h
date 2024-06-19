@@ -12,7 +12,7 @@ public:
 	
 	int getTasksCount() const;
 
-	User* clone() const override;
+	//User* clone() const override;
 	//add task
 
 private:

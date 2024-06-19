@@ -16,5 +16,5 @@ public:
 	Client() = default;
 	Client(const MyString& username, const MyString& egn, unsigned age, const MyString& password);
 
-	User* clone() const override;
+	//User* clone() const override;
 };

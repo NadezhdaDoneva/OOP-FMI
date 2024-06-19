@@ -33,6 +33,8 @@ public:
 	bool doesUserAlreadyExist(User&& user) const;
 	int getIdxOfBankByName(const MyString& bankName) const;
 
+	void createBank(const MyString& bankName);
+
 	void addClient(const Client& client);
 	void addClient(Client&& client);
 	void addThirdParty(const ThirdParty& thirdParty);

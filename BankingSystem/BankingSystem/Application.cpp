@@ -201,6 +201,19 @@ int Application::getIdxOfBankByName(const MyString& bankName) const {
 	throw std::runtime_error("No bank with such name.");
 }
 
+void Application::createBank(const MyString& bankName) {
+	//check if there is an existing bank with the same name
+	int countOfBanks = banks.getSize();
+	for (size_t i = 0; i < countOfBanks; i++) {
+		if (banks[i].getBankName() == bankName) {
+			throw std::runtime_error("A bank with the same name already exists.");
+		}
+	}
+
+	Bank newBank(bankName);
+	banks.pushBack(newBank);
+}
+
 
 void Application::addClient(const Client& client) {
     clientUsers.pushBack(client);
