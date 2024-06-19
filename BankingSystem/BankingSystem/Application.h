@@ -33,11 +33,17 @@ public:
 	bool doesUserAlreadyExist(User&& user) const;
 	int getIdxOfBankByName(const MyString& bankName) const;
 
+	void addClient(const Client& client);
+	void addClient(Client&& client);
+	void addThirdParty(const ThirdParty& thirdParty);
+	void addThirdParty(ThirdParty&& thirdParty);
+
 private:
 	DynamicArray<Bank> banks;
 	DynamicArray<ThirdParty> thirdPartyUsers;
 	DynamicArray<Client> clientUsers;
 	User* logged = nullptr;
+	LoggedUserType type = LoggedUserType::none;
 
 
 	Application() = default;

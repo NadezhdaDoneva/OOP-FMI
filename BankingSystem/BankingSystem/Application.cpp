@@ -38,31 +38,118 @@ void Application::registerThirdParty(ThirdParty&& thirdParty) {
 	}
 }
 
-void Application::login(const MyString& username, const MyString& password)
-{
+void Application::login(const MyString& username, const MyString& password) {
+	int banksCount = banks.getSize();
+
+	//search for employee with the same username and pass in each bank 
+	for (int i = 0; i < banksCount; i++) {
+		DynamicArray<Employee> employeesInCurBank = banks[i].getEmployees();
+		int employeesInCurBankCount = employeesInCurBank.getSize();
+
+		for (int j = 0; j < employeesInCurBankCount; j++) {
+			if (employeesInCurBank[j].getUsername() == username && employeesInCurBank[j].isValidPassword(password)) {
+				logged = &employeesInCurBank[j];
+				type = LoggedUserType::employee;
+				return;
+			}
+			else {
+				throw std::runtime_error("wrong username or pass");
+			}
+		}
+	}
+
+	//search for a client with that username and pass
+	int clientUsersCount = clientUsers.getSize();
+	for (int i = 0; i < clientUsersCount; i++) {
+		if (clientUsers[i].getUsername() == username && clientUsers[i].isValidPassword(password)) {
+			logged = &clientUsers[i];
+			type = LoggedUserType::client;
+			return;
+		}
+		else {
+			throw std::runtime_error("wrong username or pass");
+		}
+	}
+
+	//search for a thirdParty with that username and pass
+	int thirdPartyUsersCount = thirdPartyUsers.getSize();
+	for (int i = 0; i < thirdPartyUsersCount; i++) {
+		if (thirdPartyUsers[i].getUsername() == username && thirdPartyUsers[i].isValidPassword(password)) {
+			logged = &thirdPartyUsers[i];
+			type = LoggedUserType::thirdParty;
+			return;
+		}
+		else {
+			throw std::runtime_error("wrong username or pass");
+		}
+	}
 }
 
-void Application::login(MyString&& username, MyString&& password)
-{
+void Application::login(MyString&& username, MyString&& password) {
+	int banksCount = banks.getSize();
+
+	//search for employee with the same username and pass in each bank 
+	for (int i = 0; i < banksCount; i++) {
+		DynamicArray<Employee> employeesInCurBank = banks[i].getEmployees();
+		int employeesInCurBankCount = employeesInCurBank.getSize();
+
+		for (int j = 0; j < employeesInCurBankCount; j++) {
+			if (employeesInCurBank[j].getUsername() == username && employeesInCurBank[j].isValidPassword(password)) {
+				logged = &employeesInCurBank[j];
+				type = LoggedUserType::employee;
+				return;
+			}
+			else {
+				throw std::runtime_error("wrong username or pass");
+			}
+		}
+	}
+
+	//search for a client with that username and pass
+	int clientUsersCount = clientUsers.getSize();
+	for (int i = 0; i < clientUsersCount; i++) {
+		if (clientUsers[i].getUsername() == username && clientUsers[i].isValidPassword(password)) {
+			logged = &clientUsers[i];
+			type = LoggedUserType::client;
+			return;
+		}
+		else {
+			throw std::runtime_error("wrong username or pass");
+		}
+	}
+
+	//search for a thirdParty with that username and pass
+	int thirdPartyUsersCount = thirdPartyUsers.getSize();
+	for (int i = 0; i < thirdPartyUsersCount; i++) {
+		if (thirdPartyUsers[i].getUsername() == username && thirdPartyUsers[i].isValidPassword(password)) {
+			logged = &thirdPartyUsers[i];
+			type = LoggedUserType::thirdParty;
+			return;
+		}
+		else {
+			throw std::runtime_error("wrong username or pass");
+		}
+	}
 }
 
-void Application::logout()
-{
+void Application::logout() {
+	logged = nullptr;
+	type = LoggedUserType::none;
 }
 
 const User* Application::getLoggedUser() const
 {
-	return nullptr;
+	return logged;
 }
 
 User* Application::getLoggedUser()
 {
-	return nullptr;
+	return logged;
 }
 
 LoggedUserType Application::getType() const
 {
-	return LoggedUserType();
+	return type;
 }
 
 bool Application::doesUserAlreadyExist(User&& user) const {
@@ -112,4 +199,21 @@ int Application::getIdxOfBankByName(const MyString& bankName) const {
 	}
 
 	throw std::runtime_error("No bank with such name.");
+}
+
+
+void Application::addClient(const Client& client) {
+    clientUsers.pushBack(client);
+}
+
+void Application::addClient(Client&& client){
+    clientUsers.pushBack(std::move(client));
+}
+
+void Application::addThirdParty(const ThirdParty& thirdParty) {
+	thirdPartyUsers.pushBack(thirdParty);
+}
+
+void Application::addThirdParty(ThirdParty&& thirdParty) {
+	thirdPartyUsers.pushBack(std::move(thirdParty));
 }
