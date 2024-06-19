@@ -15,7 +15,7 @@ void Application::registerClient(Client&& client) {
 		throw std::runtime_error("User already exists");
 	}
 	else {
-		//TO DO
+		
 	}
 }
 
@@ -67,6 +67,7 @@ LoggedUserType Application::getType() const
 bool Application::doesUserAlreadyExist(User&& user) const {
 	int banksCount = banks.getSize();
 
+	//search for a user with the same username in every bank //this checks if there is no employee or client with the same username 
 	for (int i = 0; i < banksCount; i++) {
 
 		DynamicArray<Client> clientsInCurBank = banks[i].getClients();
@@ -86,15 +87,30 @@ bool Application::doesUserAlreadyExist(User&& user) const {
 				return true;
 			}
 		}
+	}
 
-		int thirdPartyUsersCount = thirdPartyUsers.getSize();
-		for (int j = 0; j < thirdPartyUsersCount; j++) {
-			if (thirdPartyUsers[j].getUsername() == user.getUsername()) {
-				return true;
-			}
+	//check for a thirdParty with the same username
+	int thirdPartyUsersCount = thirdPartyUsers.getSize();
+	for (int j = 0; j < thirdPartyUsersCount; j++) {
+		if (thirdPartyUsers[j].getUsername() == user.getUsername()) {
+			return true;
 		}
-
 	}
 
 	return false;
+}
+
+int Application::getIdxOfBankByName(const MyString& bankName) const {
+	int countOfBanks = banks.getSize();
+	if (countOfBanks == 0) {
+		throw std::runtime_error("There are no existing banks.");
+	}
+
+	for (size_t i = 0; i < countOfBanks; i++) {
+		if (banks[i].getBankName() == bankName) {
+			return i;
+		}
+	}
+
+	throw std::runtime_error("No bank with such name.");
 }

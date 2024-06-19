@@ -31,6 +31,7 @@ public:
 	User* getLoggedUser();
 	LoggedUserType getType() const;
 	bool doesUserAlreadyExist(User&& user) const;
+	int getIdxOfBankByName(const char* bankName) const;
 
 private:
 	DynamicArray<Bank> banks;
