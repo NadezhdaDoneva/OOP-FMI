@@ -6,5 +6,4 @@ class Task {
 	MyString taskName = "Unknown";
 	//const Client* client = nullptr
 	//MyString details
-	//unsiged taskID
 };

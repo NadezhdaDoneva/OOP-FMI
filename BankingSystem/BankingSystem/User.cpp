@@ -4,6 +4,10 @@
 User::User(const MyString& username, const MyString& egn, unsigned age, const MyString& password) :
 	username(username), egn(egn), age(age), password(password) {}
 
+const MyString& User::getUsername() const {
+	return username;
+}
+
 bool User::isValidPassword(const MyString& pass) const
 {
 	return pass == password;

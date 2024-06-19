@@ -6,6 +6,8 @@ public:
 	User(const MyString& username, const MyString& egn, unsigned age, const MyString& password);
 	User() = default;
 
+	const MyString& getUsername() const;
+
 	bool isValidPassword(const MyString& pass) const;
 	void whoami();
 	void help();
