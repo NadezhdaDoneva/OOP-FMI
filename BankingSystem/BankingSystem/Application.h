@@ -20,7 +20,7 @@ public:
 	const DynamicArray<Bank>& getBanks() const;
 
 	void registerClient(Client&& client);
-	void registerEmployee(Employee&& employee);
+	void registerEmployee(Employee&& employee, const MyString& bankName);
 	void registerThirdParty(ThirdParty&& thirdParty);
 
 	void login(const MyString& username, const MyString& password);
@@ -31,11 +31,12 @@ public:
 	User* getLoggedUser();
 	LoggedUserType getType() const;
 	bool doesUserAlreadyExist(User&& user) const;
-	int getIdxOfBankByName(const char* bankName) const;
+	int getIdxOfBankByName(const MyString& bankName) const;
 
 private:
 	DynamicArray<Bank> banks;
 	DynamicArray<ThirdParty> thirdPartyUsers;
+	DynamicArray<Client> clientUsers;
 	User* logged = nullptr;
 
 

@@ -6,3 +6,7 @@ Employee::Employee(const MyString& username, const MyString& egn, unsigned age, 
 int Employee::getTasksCount() const {
 	return tasks.getSize();
 }
+
+User* Employee::clone() const {
+	return new Employee(*this);
+}

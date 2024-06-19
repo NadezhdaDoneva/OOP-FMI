@@ -15,16 +15,17 @@ void Application::registerClient(Client&& client) {
 		throw std::runtime_error("User already exists");
 	}
 	else {
-		
+		clientUsers.pushBack(std::move(client));
 	}
 }
 
-void Application::registerEmployee(Employee&& employee) {
+void Application::registerEmployee(Employee&& employee, const MyString& bankName) {
 	if (doesUserAlreadyExist(std::move(employee))) {
 		throw std::runtime_error("User already exists");
 	}
 	else {
-		//TO DO
+		int idxOfBank = getIdxOfBankByName(bankName);
+		banks[idxOfBank].addEmployee(employee);
 	}
 }
 
@@ -33,7 +34,7 @@ void Application::registerThirdParty(ThirdParty&& thirdParty) {
 		throw std::runtime_error("User already exists");
 	}
 	else {
-		//TO DO
+		thirdPartyUsers.pushBack(std::move(thirdParty));
 	}
 }
 
@@ -67,18 +68,8 @@ LoggedUserType Application::getType() const
 bool Application::doesUserAlreadyExist(User&& user) const {
 	int banksCount = banks.getSize();
 
-	//search for a user with the same username in every bank //this checks if there is no employee or client with the same username 
+	//search for employee with the same username in each bank 
 	for (int i = 0; i < banksCount; i++) {
-
-		DynamicArray<Client> clientsInCurBank = banks[i].getClients();
-		int clientsInCurBankCount = clientsInCurBank.getSize();
-
-		for (int j = 0; j < clientsInCurBankCount; j++) {
-			if (clientsInCurBank[j].getUsername() == user.getUsername()) {
-				return true;
-			}
-		}
-
 		DynamicArray<Employee> employeesInCurBank = banks[i].getEmployees();
 		int employeesInCurBankCount = employeesInCurBank.getSize();
 
@@ -89,10 +80,18 @@ bool Application::doesUserAlreadyExist(User&& user) const {
 		}
 	}
 
+	//check for a client with the same uername
+	int clientUsersCount = clientUsers.getSize();
+	for (int i = 0; i < clientUsersCount; i++) {
+		if (clientUsers[i].getUsername() == user.getUsername()) {
+			return true;
+		}
+	}
+
 	//check for a thirdParty with the same username
 	int thirdPartyUsersCount = thirdPartyUsers.getSize();
-	for (int j = 0; j < thirdPartyUsersCount; j++) {
-		if (thirdPartyUsers[j].getUsername() == user.getUsername()) {
+	for (int i = 0; i < thirdPartyUsersCount; i++) {
+		if (thirdPartyUsers[i].getUsername() == user.getUsername()) {
 			return true;
 		}
 	}

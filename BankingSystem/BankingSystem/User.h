@@ -8,6 +8,9 @@ public:
 
 	const MyString& getUsername() const;
 
+	virtual User* clone() const = 0;
+	virtual ~User() = default;
+
 	bool isValidPassword(const MyString& pass) const;
 	void whoami();
 	void help();
