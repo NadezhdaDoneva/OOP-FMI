@@ -29,3 +29,4 @@ double Account::getBalance() const {
 void Account::addMoney(unsigned money) {
 	balance += money;
 }
+

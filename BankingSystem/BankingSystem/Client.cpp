@@ -58,6 +58,22 @@ void Client::redeem(const MyString& bankName, unsigned accountNumber, const MySt
 	}
 }
 
+void Client::list(const MyString& bankName) {
+	int bankAccountsCount = bankAccounts.getSize();
+	for (int i = 0; i < bankAccountsCount; i++) {
+		if (bankAccounts[i].getLhs() == bankName) {
+			std::cout << bankAccounts[i].getLhs() << " " << bankAccounts[i].getRhs().getAccountNumber() << std::endl;
+		}
+	}
+}
+
+void Client::printMessages() const {
+	int messagesCount = messages.getSize();
+	for (size_t i = 0; i < messagesCount; i++) {
+		std::cout << messages[i];
+	}
+}
+
 void Client::saveToFile(std::ofstream& ofs) const {
 	User::saveToFile(ofs);
 	int messCount = messages.getSize();

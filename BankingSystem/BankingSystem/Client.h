@@ -22,6 +22,8 @@ public:
 	
 	double checkAvailable(const MyString& bankName, unsigned accountNumber) const;
 	void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
+	void list(const MyString& bankName);
+	void printMessages() const;
 
 	void saveToFile(std::ofstream& ofs) const override;
 	void readFromFile(std::ifstream& ifs) override;

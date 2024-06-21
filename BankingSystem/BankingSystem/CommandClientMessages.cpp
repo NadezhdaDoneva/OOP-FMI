@@ -1,12 +1,10 @@
-#include "CommandClientList.h"
+#include "CommandClientMessages.h"
 
-void ListCommand::execute(Application* app) {
-	MyString bankName;
-	std::cin >> bankName;
+void MessagesCommand::execute(Application* app) {
 	try {
 		User* curClient = app->getLoggedUser();
 		if (Client* cur = dynamic_cast<Client*>(curClient)) {
-			cur->list(bankName);
+			cur->printMessages();
 		}
 	}
 	catch (const std::runtime_error& err) {
