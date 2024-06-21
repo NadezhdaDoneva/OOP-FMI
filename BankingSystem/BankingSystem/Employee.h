@@ -12,6 +12,9 @@ public:
 	
 	int getTasksCount() const;
 
+	void saveToFile(std::ofstream& ofs) const override;
+	void readFromFile(std::ifstream& ifs) override;
+
 	//User* clone() const override;
 	//add task
 

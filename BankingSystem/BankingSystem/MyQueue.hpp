@@ -33,6 +33,9 @@ public:
 	bool isEmpty() const;
 	int getSize() const;
 
+	const T& operator[](size_t index) const;
+	T& operator[](size_t index);
+
 	~MyQueue();
 
 };
@@ -182,6 +185,16 @@ bool MyQueue<T>::isEmpty() const
 template<typename T>
 inline int MyQueue<T>::getSize() const {
 	return size;
+}
+
+template<typename T>
+inline const T& MyQueue<T>::operator[](size_t index) const {
+	return data[index];
+}
+
+template<typename T>
+inline T& MyQueue<T>::operator[](size_t index) {
+	return data[index];
 }
 
 template<typename T>

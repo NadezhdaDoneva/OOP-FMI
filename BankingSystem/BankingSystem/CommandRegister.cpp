@@ -15,8 +15,8 @@ void RegisterCommand::execute(Application* app) {
 	{
 	case 1: rcc.execute(app);
 		break;
-	//case 2: rec.execute(app);
-	//	break;
+	case 2: rec.execute(app);
+		break;
 	case 3: rtc.execute(app);
 	default:
 		std::cout << "Unknown command\n";

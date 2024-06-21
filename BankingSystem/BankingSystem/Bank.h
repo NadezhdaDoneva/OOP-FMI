@@ -22,6 +22,10 @@ public:
 	void addEmployee(const Employee& employee);
 	void addEmployee(Employee&& employee);
 
+	void saveToFile(std::ofstream& ofs) const;
+	void readFromFile(std::ifstream& ifs);
+
+	Employee* searchEmployeeByUsername(const MyString& username);
 	Employee* getLeastBusiestEmployee();
 	const MyString& getBankName() const;
 };

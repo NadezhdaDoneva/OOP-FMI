@@ -11,6 +11,9 @@ public:
 	/*virtual User* clone() const = 0;
 	virtual ~User() = default;*/
 
+	virtual void saveToFile(std::ofstream& ofs) const;
+	virtual void readFromFile(std::ifstream& ifs);
+
 	bool isValidPassword(const MyString& pass) const;
 	void whoami();
 	void help();

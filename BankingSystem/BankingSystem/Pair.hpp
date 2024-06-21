@@ -11,6 +11,9 @@ public:
 	const T& getLhs() const;
 	const D& getRhs() const;
 
+	T& getLhs();
+	D& getRhs();
+
 	void setLhs(const T& lhs);
 	void setRhs(const D& rhs);
 
@@ -29,6 +32,16 @@ const T& Pair<T, D>::getLhs() const {
 
 template<class T, class D>
 const D& Pair<T, D>::getRhs() const {
+	return rhs;
+}
+
+template<class T, class D>
+inline T& Pair<T, D>::getLhs() {
+	return lhs;
+}
+
+template<class T, class D>
+inline D& Pair<T, D>::getRhs() {
 	return rhs;
 }
 

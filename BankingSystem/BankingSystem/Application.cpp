@@ -1,4 +1,5 @@
 #include "Application.h"
+#include <fstream>
 
 Application& Application::getInstance() {
 	static Application app;
@@ -156,8 +157,6 @@ void Application::help() {
 	}
 }
 
-
-
 const User* Application::getLoggedUser() const
 {
 	return logged;
@@ -250,4 +249,129 @@ void Application::addThirdParty(const ThirdParty& thirdParty) {
 
 void Application::addThirdParty(ThirdParty&& thirdParty) {
 	thirdPartyUsers.pushBack(std::move(thirdParty));
+}
+
+void Application::load() {
+	//Load clients
+	std::ifstream cif("clients.dat", std::ios::in | std::ios::binary);
+	if (!cif.is_open())
+		throw std::runtime_error("Can't open the file!");
+	int clCount = 0;
+	cif.read((char*)&clCount, sizeof clCount);
+	for (int i = 0; i < clCount; i++)
+	{
+		Client cl;
+		cl.readFromFile(cif);
+		clientUsers.pushBack(std::move(cl));
+	}
+	cif.close();
+
+	//Load thirdParties
+	std::ifstream tif("clients.dat", std::ios::in | std::ios::binary);
+	if (!tif.is_open())
+		throw std::runtime_error("Can't open the file!");
+	int ThirdPartyCount = 0;
+	tif.read((char*)&ThirdPartyCount, sizeof ThirdPartyCount);
+	for (int i = 0; i < ThirdPartyCount; i++)
+	{
+		ThirdParty tr;
+		tr.readFromFile(tif);
+		thirdPartyUsers.pushBack(std::move(tr));
+	}
+	tif.close();
+
+	//Load Banks
+	std::ifstream bif("banks.dat", std::ios::out | std::ios::binary);
+	if (!bif.is_open())
+		throw std::runtime_error("Can't open the file!");
+	int banksCount = 0;
+	bif.read((char*)&banksCount, sizeof banksCount);
+	for (size_t i = 0; i < banksCount; i++) {
+		Bank bank;
+		bank.readFromFile(bif);
+		banks.pushBack(std::move(bank));
+	}
+	bif.close();
+
+	//Load session
+	std::ifstream sif("session.dat", std::ios::in | std::ios::binary);
+	if (!sif.is_open())
+		throw std::exception("File not open.");
+
+	MyString username = "";
+	sif.read((char*)&username, sizeof username);
+	LoggedUserType type;
+	sif.read((char*)&type, sizeof type);
+
+	if (type == LoggedUserType::client) {
+		int clientsCount = clientUsers.getSize();
+		for (int i = 0; i < clientsCount; i++) {
+			if (clientUsers[i].getUsername() == username)
+				logged = &clientUsers[i];
+		}
+	}
+	else if (type == LoggedUserType::employee) {
+		int banksCount = banks.getSize();
+		for (int i = 0; i < banksCount; i++) {
+			if (banks[i].searchEmployeeByUsername(username)) {
+				logged = banks[i].searchEmployeeByUsername(username);
+			}
+		}
+	}
+	else if (type == LoggedUserType::thirdParty) {
+		int thirdPartyCount = thirdPartyUsers.getSize();
+		for (int i = 0; i < thirdPartyCount; i++)
+		{
+			if (thirdPartyUsers[i].getUsername() == username)
+				logged = &thirdPartyUsers[i];
+		}
+	}
+}
+
+void Application::save() const {
+
+	//Save session
+	std::ofstream sof("session.dat", std::ios::out | std::ios::binary);
+	if (!sof.is_open())
+		throw std::runtime_error("Can't open the file!");
+
+	MyString username = "";
+	if (logged == nullptr) {
+		username = "No logged user";
+	}
+	else {
+		username = logged->getUsername();
+	}
+	sof.write((const char*)&username, sizeof username);
+	sof.write((const char*)&type, sizeof type);
+	sof.close();
+
+	//Save clients
+	std::ofstream cof("clients.dat", std::ios::out | std::ios::binary);
+	if (!cof.is_open())
+		throw std::runtime_error("Can't open the file!");
+	int clCount = clientUsers.getSize();
+	cof.write((const char*)&clCount, sizeof clCount);
+	for (int i = 0; i < clCount; i++)
+		clientUsers[i].saveToFile(cof);
+	cof.close();
+
+	//Save Banks
+	std::ofstream bof("banks.dat", std::ios::out | std::ios::binary);
+	if (!bof.is_open())
+		throw std::runtime_error("Can't open the file!");
+	int banksCount = banks.getSize();
+	for (int i = 0; i < banksCount; i++) {
+		banks[i].saveToFile(bof);
+	}
+
+	//Save thirdParties
+	std::ofstream tof("thirdParty.dat", std::ios::out | std::ios::binary);
+	if (!tof.is_open())
+		throw std::runtime_error("Can't open the file!");
+	int thirdPartyCount = thirdPartyUsers.getSize();
+	tof.write((const char*)&thirdPartyCount, sizeof thirdPartyCount);
+	for (int i = 0; i < thirdPartyCount; i++)
+		thirdPartyUsers[i].saveToFile(tof);
+	tof.close();
 }

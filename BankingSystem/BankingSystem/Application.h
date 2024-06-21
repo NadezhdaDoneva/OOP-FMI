@@ -14,6 +14,10 @@ enum class LoggedUserType {
 
 class Application {
 public:
+	Application() = default;
+	Application(const Application& other) = delete;
+	Application& operator=(const Application& other) = delete;
+
 	static Application& getInstance();
 
 	const DynamicArray<Bank>& getBanks() const;
@@ -41,10 +45,8 @@ public:
 	void addThirdParty(const ThirdParty& thirdParty);
 	void addThirdParty(ThirdParty&& thirdParty);
 
-	Application() = default;
-	Application(const Application& other) = delete;
-	Application& operator=(const Application& other) = delete;
-
+	void save() const;
+	void load();
 private:
 	DynamicArray<Bank> banks;
 	DynamicArray<ThirdParty> thirdPartyUsers;

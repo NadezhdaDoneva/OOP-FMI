@@ -17,5 +17,9 @@ public:
 	Client(const MyString& username, const MyString& egn, unsigned age, const MyString& password);
 
 	void check_avl(const MyString& bankName, const MyString& accountNumber);
+
+	void saveToFile(std::ofstream& ofs) const override;
+	void readFromFile(std::ifstream& ifs) override;
+
 	//User* clone() const override;
 };

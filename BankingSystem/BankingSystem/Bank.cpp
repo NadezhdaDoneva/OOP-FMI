@@ -1,4 +1,5 @@
 #include "Bank.h"
+#include <fstream>
 
 Bank::Bank(const MyString& name) : bankName(name){}
 
@@ -24,6 +25,37 @@ void Bank::addEmployee(const Employee& employee) {
 
 void Bank::addEmployee(Employee&& employee) {
     employees.pushBack(std::move(employee));
+}
+
+void Bank::saveToFile(std::ofstream& ofs) const {
+    bankName.saveToFile(ofs);
+    int employeesInCurBankCount = employees.getSize();
+    ofs.write((const char*)&employeesInCurBankCount, sizeof employeesInCurBankCount);
+    for (int i = 0; i < employeesInCurBankCount; i++)
+        employees[i].saveToFile(ofs);
+    ofs.close();
+}
+
+void Bank::readFromFile(std::ifstream& ifs) {
+    bankName.readFromFile(ifs);
+    int employeesInCurBankCount = 0;
+    ifs.read((char*)&employeesInCurBankCount, sizeof employeesInCurBankCount);
+    for (size_t i = 0; i < employeesInCurBankCount; i++) {
+        employees[i].readFromFile(ifs);
+    }
+    ifs.close();
+}
+
+Employee* Bank::searchEmployeeByUsername(const MyString& username)
+{
+    int employeesCount = employees.getSize();
+    Employee* searchedEmployee = nullptr;
+    for (int i = 0; i < employeesCount; i++) {
+        if (employees[i].getUsername() == username) {
+            return searchedEmployee;
+        }
+    }
+    return nullptr;
 }
 
 Employee* Bank::getLeastBusiestEmployee() {

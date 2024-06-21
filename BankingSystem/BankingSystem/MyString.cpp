@@ -1,6 +1,7 @@
 #include "MyString.h"
 #include <cstring>
 #include <algorithm>
+#include <fstream>
 #pragma warning (disable : 4996)
 
 
@@ -202,4 +203,18 @@ bool operator>(const MyString& lhs, const MyString& rhs)
 bool operator>=(const MyString& lhs, const MyString& rhs)
 {
     return std::strcmp(lhs.c_str(), rhs.c_str()) >= 0;
+}
+
+void MyString::saveToFile(std::ofstream& ofs) const
+{
+    ofs.write((const char*)&this->_size, sizeof(this->_size));
+    ofs.write(this->c_str(), this->_size + 1);
+}
+
+void MyString::readFromFile(std::ifstream& ifs)
+{
+    free();
+    ifs.read((char*)&this->_size, sizeof(this->_size));
+    this->_data = new char[_size + 1] {};
+    ifs.read(this->_data, this->_size + 1);
 }
