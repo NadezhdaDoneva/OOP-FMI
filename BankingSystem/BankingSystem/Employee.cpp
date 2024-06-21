@@ -28,6 +28,10 @@ void Employee::readFromFile(std::ifstream& ifs) {
 	};
 }
 
+void Employee::addTask(const Task& task) {
+	tasks.push(task);
+}
+
 //User* Employee::clone() const {
 //	return new Employee(*this);
 //}

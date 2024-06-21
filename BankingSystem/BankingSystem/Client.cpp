@@ -22,7 +22,7 @@ int Client::IdxOfBankWithThatAccountNum(const MyString& bankName, unsigned accou
 double Client::checkAvailable(const MyString& bankName, unsigned accountNumber) {
 	int idx = IdxOfBankWithThatAccountNum(bankName, accountNumber);
 	if (idx == -1) {
-		throw "No such bank and accountNumber.";
+		throw std::runtime_error("No such bank and accountNumber.");
 	}
 	else {
 		return bankAccounts[idx].getRhs().getBalance();

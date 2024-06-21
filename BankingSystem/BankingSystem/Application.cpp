@@ -234,6 +234,12 @@ void Application::createBank(const MyString& bankName) {
 	banks.pushBack(newBank);
 }
 
+void Application::open(const MyString& bankname) {
+	unsigned idx = getIdxOfBankByName(bankname);
+	Task task("Open", logged->getUsername(), bankname);
+	banks[idx].assignTask(task);
+}
+
 
 void Application::addClient(const Client& client) {
     clientUsers.pushBack(client);

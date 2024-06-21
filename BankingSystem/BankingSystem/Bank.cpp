@@ -46,6 +46,11 @@ void Bank::readFromFile(std::ifstream& ifs) {
     ifs.close();
 }
 
+void Bank::assignTask(const Task& task) {
+    Employee* leastBusiest = getLeastBusiestEmployee();
+    leastBusiest->addTask(task);
+}
+
 Employee* Bank::searchEmployeeByUsername(const MyString& username)
 {
     int employeesCount = employees.getSize();

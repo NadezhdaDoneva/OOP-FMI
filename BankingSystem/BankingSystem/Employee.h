@@ -15,6 +15,7 @@ public:
 	void saveToFile(std::ofstream& ofs) const override;
 	void readFromFile(std::ifstream& ifs) override;
 
+	void addTask(const Task& task);
 	//User* clone() const override;
 	//add task
 

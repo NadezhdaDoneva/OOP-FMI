@@ -39,6 +39,7 @@ public:
 	int getIdxOfBankByName(const MyString& bankName) const;
 
 	void createBank(const MyString& bankName);
+	void open(const MyString& bankName);
 
 	void addClient(const Client& client);
 	void addClient(Client&& client);
