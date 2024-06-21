@@ -8,6 +8,10 @@ const MyString& User::getUsername() const {
 	return username;
 }
 
+const MyString& User::getEGN() const {
+	return egn;
+}
+
 void User::saveToFile(std::ofstream& ofs) const {
 	username.saveToFile(ofs);
 	egn.saveToFile(ofs);

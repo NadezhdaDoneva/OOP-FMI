@@ -25,3 +25,7 @@ unsigned Account::getAccountNumber() const {
 double Account::getBalance() const {
 	return balance;
 }
+
+void Account::addMoney(unsigned money) {
+	balance += money;
+}

@@ -7,7 +7,7 @@ Client::Client(const MyString& username, const MyString& egn, unsigned age, cons
 int Client::IdxOfBankWithThatAccountNum(const MyString& bankName, unsigned accountNumber) const {
 	int countOfAccounts = bankAccounts.getSize();
 	if (countOfAccounts == 0) {
-		throw std::runtime_error("You have no accounts to check the balance in.");
+		throw std::runtime_error("You have no accounts");
 	}
 	for (int i = 0; i < countOfAccounts; i++) {
 		MyString curBankName = bankAccounts[i].getLhs();
@@ -19,13 +19,42 @@ int Client::IdxOfBankWithThatAccountNum(const MyString& bankName, unsigned accou
 	return -1;
 }
 
-double Client::checkAvailable(const MyString& bankName, unsigned accountNumber) {
+double Client::checkAvailable(const MyString& bankName, unsigned accountNumber) const {
 	int idx = IdxOfBankWithThatAccountNum(bankName, accountNumber);
 	if (idx == -1) {
 		throw std::runtime_error("No such bank and accountNumber.");
 	}
 	else {
 		return bankAccounts[idx].getRhs().getBalance();
+	}
+}
+
+int Client::getIdxOfCheckByCode(const MyString& code) const {
+	int countOfChecks = checks.getSize();
+	if (countOfChecks == 0) {
+		std::cout << "there are no checks to be redeemed yet.";
+	}
+	for (int i = 0; i < countOfChecks; i++) {
+		if (checks[i].getCode() == code) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+void Client::redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode) {
+	int idxBankAccount = IdxOfBankWithThatAccountNum(bankName, accountNumber);
+	if (idxBankAccount != -1) {
+		int idxCheck = getIdxOfCheckByCode(verificationCode);
+		if (idxCheck != -1) {
+			bankAccounts[idxBankAccount].getRhs().addMoney(checks[idxCheck].getMoney());
+		}
+		else {
+			throw std::runtime_error("Wrong code.");
+		}
+	}
+	else {
+		throw std::runtime_error("No such account with that bankname and account number.");
 	}
 }
 
@@ -42,6 +71,11 @@ void Client::saveToFile(std::ofstream& ofs) const {
 		bankAccounts[i].getLhs().saveToFile(ofs);
 		bankAccounts[i].getRhs().saveToFile(ofs);
 	}
+	int checksCount = checks.getSize();
+	ofs.write((const char*)&checksCount, sizeof checksCount);
+	for (int i = 0; i < checksCount; i++) {
+		checks[i].saveToFile(ofs);
+	}
 }
 
 void Client::readFromFile(std::ifstream& ifs) {
@@ -56,6 +90,11 @@ void Client::readFromFile(std::ifstream& ifs) {
 	for (int i = 0; i < bankAccountsCount; i++) {
 		ifs.read((char*)&bankAccounts[i].getLhs(), sizeof bankAccounts[i].getLhs());
 		bankAccounts[i].getRhs().readFromFile(ifs);
+	}
+	int  checksCount = 0;
+	ifs.read((char*)&checksCount, sizeof checksCount);
+	for (int i = 0; i < checksCount; i++) {
+		checks[i].readFromFile(ifs);
 	}
 }
 

@@ -9,6 +9,7 @@
 
 class Client : public User {
 private:
+	DynamicArray<Check> checks;
 	DynamicArray<MyString> messages;
 	DynamicArray<Pair<MyString, Account>> bankAccounts; // format: {bankName: Account[account number, ballance]}
 	//DynamicArray<Account> bankAccounts;

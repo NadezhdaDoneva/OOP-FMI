@@ -4,6 +4,7 @@
 #include "User.h"
 #include "Client.h"
 #include "ThirdParty.h"
+#include "Check.h"
 
 enum class LoggedUserType {
 	client,
@@ -41,6 +42,7 @@ public:
 	void createBank(const MyString& bankName);
 	void open(const MyString& bankName);
 	void close(const MyString& bankName, unsigned accountNumber);
+	void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
 
 	void addClient(const Client& client);
 	void addClient(Client&& client);
@@ -53,6 +55,7 @@ private:
 	DynamicArray<Bank> banks;
 	DynamicArray<ThirdParty> thirdPartyUsers;
 	DynamicArray<Client> clientUsers;
+	//DynamicArray<Check> checks;
 	//DynamicArray<PolymorphicPtr><User> users
 	User* logged = nullptr;
 	LoggedUserType type = LoggedUserType::none;

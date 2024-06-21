@@ -246,6 +246,21 @@ void Application::close(const MyString& bankName, unsigned accountNumber) {
 	banks[idx].assignTask(task);
 }
 
+//void Application::redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode) {
+//	User* curClient = getLoggedUser();
+//	if (Client* cur = dynamic_cast<Client*>(curClient)) {
+//		if (cur->IdxOfBankWithThatAccountNum(bankName, accountNumber) != -1) {
+//			int idx = cur->getIdxOfCheckByCode(verificationCode);
+//			if (idx != -1) {
+//
+//			}
+//			else {
+//				throw std::runtime_error("Wrong code.");
+//			}
+//		}
+//	}
+//}
+
 
 void Application::addClient(const Client& client) {
     clientUsers.pushBack(client);
@@ -291,6 +306,20 @@ void Application::load() {
 		thirdPartyUsers.pushBack(std::move(tr));
 	}
 	tif.close();
+
+	//Load checks
+	/*std::ifstream chif("clients.dat", std::ios::in | std::ios::binary);
+	if (!chif.is_open())
+		throw std::runtime_error("Can't open the file!");
+	int checksCount = 0;
+	chif.read((char*)&checksCount, sizeof checksCount);
+	for (int i = 0; i < checksCount; i++)
+	{
+		Check ch;
+		ch.readFromFile(chif);
+		checks.pushBack(std::move(ch));
+	}
+	chif.close();*/
 
 	//Load Banks
 	std::ifstream bif("banks.dat", std::ios::out | std::ios::binary);
@@ -386,4 +415,14 @@ void Application::save() const {
 	for (int i = 0; i < thirdPartyCount; i++)
 		thirdPartyUsers[i].saveToFile(tof);
 	tof.close();
+
+	//Save checks
+	/*std::ofstream chof("checks.dat", std::ios::out | std::ios::binary);
+	if (!chof.is_open())
+		throw std::runtime_error("Can't open the file!");
+	int checksCount = checks.getSize();
+	chof.write((const char*)&checksCount, sizeof checksCount);
+	for (int i = 0; i < checksCount; i++)
+		checks[i].saveToFile(chof);
+	chof.close();*/
 }
