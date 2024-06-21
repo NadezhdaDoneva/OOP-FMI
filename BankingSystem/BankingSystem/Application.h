@@ -42,7 +42,8 @@ public:
 	void createBank(const MyString& bankName);
 	void open(const MyString& bankName);
 	void close(const MyString& bankName, unsigned accountNumber);
-	void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
+	void change(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
+	//void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
 
 	void addClient(const Client& client);
 	void addClient(Client&& client);

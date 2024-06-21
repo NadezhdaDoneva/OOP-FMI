@@ -18,7 +18,10 @@ public:
 	Client(const MyString& username, const MyString& egn, unsigned age, const MyString& password);
 
 	int IdxOfBankWithThatAccountNum(const MyString& bankName, unsigned accountNumber) const;
-	double checkAvailable(const MyString& bankName, unsigned accountNumber);
+	int getIdxOfCheckByCode(const MyString& code) const;
+	
+	double checkAvailable(const MyString& bankName, unsigned accountNumber) const;
+	void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
 
 	void saveToFile(std::ofstream& ofs) const override;
 	void readFromFile(std::ifstream& ifs) override;

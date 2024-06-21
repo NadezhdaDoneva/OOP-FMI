@@ -7,6 +7,7 @@ public:
 	User() = default;
 
 	const MyString& getUsername() const;
+	const MyString& getEGN() const;
 
 	/*virtual User* clone() const = 0;
 	virtual ~User() = default;*/

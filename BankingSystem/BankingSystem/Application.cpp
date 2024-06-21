@@ -242,7 +242,13 @@ void Application::open(const MyString& bankName) {
 
 void Application::close(const MyString& bankName, unsigned accountNumber) {
 	unsigned idx = getIdxOfBankByName(bankName);
-	Task task("Open", logged->getUsername(), bankName, accountNumber);
+	Task task("Close", logged->getUsername(), bankName, accountNumber);
+	banks[idx].assignTask(task);
+}
+
+void Application::change(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
+	unsigned idx = getIdxOfBankByName(curBankName);
+	Task task("Change", logged->getUsername(), curBankName, accountNumber);
 	banks[idx].assignTask(task);
 }
 
