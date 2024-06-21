@@ -4,8 +4,29 @@
 Client::Client(const MyString& username, const MyString& egn, unsigned age, const MyString& password)
 	 : User(username, egn, age, password){}
 
-void Client::check_avl(const MyString& bankName, const MyString& accountNumber) {
+int Client::IdxOfBankWithThatAccountNum(const MyString& bankName, unsigned accountNumber) const {
+	int countOfAccounts = bankAccounts.getSize();
+	if (countOfAccounts == 0) {
+		throw std::runtime_error("You have no accounts to check the balance in.");
+	}
+	for (int i = 0; i < countOfAccounts; i++) {
+		MyString curBankName = bankAccounts[i].getLhs();
+		Account curAcc = bankAccounts[i].getRhs();
+		if (curBankName == bankName && curAcc.getAccountNumber() == accountNumber) {
+			return i;
+		}
+	}
+	return -1;
+}
 
+double Client::checkAvailable(const MyString& bankName, unsigned accountNumber) {
+	int idx = IdxOfBankWithThatAccountNum(bankName, accountNumber);
+	if (idx == -1) {
+		throw "No such bank and accountNumber.";
+	}
+	else {
+		return bankAccounts[idx].getRhs().getBalance();
+	}
 }
 
 void Client::saveToFile(std::ofstream& ofs) const {

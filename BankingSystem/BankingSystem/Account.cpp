@@ -17,3 +17,11 @@ void Account::readFromFile(std::ifstream& ifs) {
 	ifs.read((char*)&accountNumber, sizeof accountNumber);
 	ifs.read((char*)&balance, sizeof balance);
 }
+
+unsigned Account::getAccountNumber() const {
+	return accountNumber;
+}
+
+double Account::getBalance() const {
+	return balance;
+}

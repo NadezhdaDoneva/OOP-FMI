@@ -16,7 +16,8 @@ public:
 	Client() = default;
 	Client(const MyString& username, const MyString& egn, unsigned age, const MyString& password);
 
-	void check_avl(const MyString& bankName, const MyString& accountNumber);
+	int IdxOfBankWithThatAccountNum(const MyString& bankName, unsigned accountNumber) const;
+	double checkAvailable(const MyString& bankName, unsigned accountNumber);
 
 	void saveToFile(std::ofstream& ofs) const override;
 	void readFromFile(std::ifstream& ifs) override;

@@ -2,6 +2,7 @@
 #include "Command.h"
 
 class LoginCommand : public Command {
+public:
 	LoginCommand() = default;
 
 	LoginCommand(const LoginCommand&) = delete;
