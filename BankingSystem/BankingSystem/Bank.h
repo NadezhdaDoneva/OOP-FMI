@@ -25,6 +25,8 @@ public:
 	void saveToFile(std::ofstream& ofs) const;
 	void readFromFile(std::ifstream& ifs);
 
+	void assignTask(const Task& task);
+
 	Employee* searchEmployeeByUsername(const MyString& username);
 	Employee* getLeastBusiestEmployee();
 	const MyString& getBankName() const;

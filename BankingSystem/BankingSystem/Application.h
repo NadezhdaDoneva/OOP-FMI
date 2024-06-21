@@ -40,6 +40,7 @@ public:
 
 	void createBank(const MyString& bankName);
 	void open(const MyString& bankName);
+	void close(const MyString& bankName, unsigned accountNumber);
 
 	void addClient(const Client& client);
 	void addClient(Client&& client);
