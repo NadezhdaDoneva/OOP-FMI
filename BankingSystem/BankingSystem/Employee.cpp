@@ -28,8 +28,16 @@ void Employee::readFromFile(std::ifstream& ifs) {
 	};
 }
 
+void Employee::printTasks() const {
+	int tasksCount = tasks.getSize();
+	for (int i = 0; i < tasksCount; i++) {
+		std::cout << "[" << i << "] ";
+		tasks[i].print();
+	}
+}
+
 void Employee::addTask(const Task& task) {
-	tasks.push(task);
+	tasks.pushBack(task);
 }
 
 //User* Employee::clone() const {

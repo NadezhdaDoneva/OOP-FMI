@@ -1,5 +1,5 @@
 #pragma once
-#include "MyQueue.hpp" 
+#include "DynamicArray.hpp"
 #include "MyString.h"
 #include "Task.h"
 #include "User.h"
@@ -15,11 +15,13 @@ public:
 	void saveToFile(std::ofstream& ofs) const override;
 	void readFromFile(std::ifstream& ifs) override;
 
+	void printTasks() const;
+
 	void addTask(const Task& task);
 	//User* clone() const override;
 	//add task
 
 private:
 	MyString bankName;
-	MyQueue<Task> tasks;
+	DynamicArray<Task> tasks;
 };

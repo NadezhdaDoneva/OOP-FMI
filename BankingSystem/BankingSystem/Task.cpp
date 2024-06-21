@@ -37,3 +37,15 @@ void Task::readFromFile(std::ifstream& ifs) {
 	newBankName.readFromFile(ifs);
 	ifs.read((char*)accountNumber, sizeof accountNumber);
 }
+
+void Task::print() const {
+	if (type == "Open") {
+		std::cout << "Open - " << username << " wants to create an account." << std::endl;
+	}
+	else if (type == "Close") {
+		std::cout << "Close - " << username << " wants to close an account." << std::endl;
+	}
+	else if (type == "Change") {
+		std::cout << "Change - " << username << " wants to join." << newBankName << std::endl;
+	}
+}

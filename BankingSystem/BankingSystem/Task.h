@@ -9,6 +9,7 @@ public:
 	Task(const MyString& type, const MyString& username, const MyString& curBankName, const MyString& newBankName, unsigned accountNumber);
 	void saveToFile(std::ofstream& ofs) const;
 	void readFromFile(std::ifstream& ifs);
+	void print() const;
 private:
 	MyString type = "Unknown";
 	MyString username = "Unknown";
