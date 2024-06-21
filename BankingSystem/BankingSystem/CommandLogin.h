@@ -1,1 +1,11 @@
 #pragma once
+#include "Command.h"
+
+class LoginCommand : public Command {
+	LoginCommand() = default;
+
+	LoginCommand(const LoginCommand&) = delete;
+	LoginCommand& operator=(const LoginCommand&) = delete;
+
+	void execute(Application* app) override;
+};

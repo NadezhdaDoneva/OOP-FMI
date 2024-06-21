@@ -1,7 +1,7 @@
 #pragma once
 #include "Command.h"
 
-class RegisterCommand : Command
+class RegisterCommand : public Command
 {
 public:
 	RegisterCommand() = default;

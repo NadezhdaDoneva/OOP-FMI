@@ -3,7 +3,6 @@
 #include "DynamicArray.hpp"
 #include "User.h"
 #include "Client.h"
-#include "Employee.h"
 #include "ThirdParty.h"
 
 enum class LoggedUserType {
@@ -26,6 +25,8 @@ public:
 	void login(const MyString& username, const MyString& password);
 	void login(MyString&& username, MyString&& password);
 	void logout();
+	void whoami();
+	void help();
 
 	const User* getLoggedUser() const;
 	User* getLoggedUser();
@@ -40,15 +41,16 @@ public:
 	void addThirdParty(const ThirdParty& thirdParty);
 	void addThirdParty(ThirdParty&& thirdParty);
 
+	Application() = default;
+	Application(const Application& other) = delete;
+	Application& operator=(const Application& other) = delete;
+
 private:
 	DynamicArray<Bank> banks;
 	DynamicArray<ThirdParty> thirdPartyUsers;
 	DynamicArray<Client> clientUsers;
+	//DynamicArray<PolymorphicPtr><User> users
 	User* logged = nullptr;
 	LoggedUserType type = LoggedUserType::none;
 
-
-	Application() = default;
-	Application(const Application& other) = delete;
-	Application& operator=(const Application& other) = delete;
 };

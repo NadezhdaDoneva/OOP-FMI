@@ -1,7 +1,7 @@
 #pragma once
 #include "Command.h"
 
-class HandleNoneCommand : Command
+class HandleNoneCommand : public Command
 {
 public:
 	HandleNoneCommand() = default;

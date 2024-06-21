@@ -8,6 +8,7 @@ class Bank {
 private:
 	MyString bankName = "Unknown";
 	DynamicArray<Employee> employees;
+	//DynamicArray<Employee>& employees;
 	//DynamicArray<Client> clients;
 public:
 	Bank() = default;

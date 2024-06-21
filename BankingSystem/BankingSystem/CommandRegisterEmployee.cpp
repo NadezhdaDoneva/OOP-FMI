@@ -1,5 +1,4 @@
 #include "CommandRegisterEmployee.h"
-#pragma once
 
 void RegEmployeeCommand::execute(Application* app) {
 	try {

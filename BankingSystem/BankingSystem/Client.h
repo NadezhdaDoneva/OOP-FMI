@@ -16,5 +16,6 @@ public:
 	Client() = default;
 	Client(const MyString& username, const MyString& egn, unsigned age, const MyString& password);
 
+	void check_avl(const MyString& bankName, const MyString& accountNumber);
 	//User* clone() const override;
 };

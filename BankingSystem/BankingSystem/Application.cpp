@@ -137,6 +137,27 @@ void Application::logout() {
 	type = LoggedUserType::none;
 }
 
+void Application::whoami() {
+	User* curUser = getLoggedUser();
+	if (curUser != nullptr) {
+		std::cout << "You are " << curUser->getUsername();
+	}
+}
+
+void Application::help() {
+	if (type == LoggedUserType::client) {
+		std::cout << "Client help menu: ";
+	}
+	else if (type == LoggedUserType::employee) {
+		std::cout << "Employee help menu: ";
+	}
+	else if (type == LoggedUserType::thirdParty) {
+		std::cout << "Third party help menu: ";
+	}
+}
+
+
+
 const User* Application::getLoggedUser() const
 {
 	return logged;
