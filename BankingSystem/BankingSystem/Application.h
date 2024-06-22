@@ -43,6 +43,7 @@ public:
 	void open(const MyString& bankName);
 	void close(const MyString& bankName, unsigned accountNumber);
 	void change(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
+	void viewTask(unsigned num) const;
 	//void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
 
 	void addClient(const Client& client);

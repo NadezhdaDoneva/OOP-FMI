@@ -2,6 +2,7 @@
 #include "Command.h"
 
 class RunCommand : public Command {
+public:
 	RunCommand() = default;
 
 	RunCommand(const RunCommand&) = delete;

@@ -2,6 +2,7 @@
 #include "Command.h"
 
 class MessagesCommand : public Command {
+public:
 	MessagesCommand() = default;
 
 	MessagesCommand(const MessagesCommand&) = delete;

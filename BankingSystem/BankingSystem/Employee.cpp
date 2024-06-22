@@ -36,6 +36,14 @@ void Employee::printTasks() const {
 	}
 }
 
+void Employee::viewTask(unsigned num) const {
+	if (num > tasks.getSize()) {
+		throw std::runtime_error("no task with that id.");
+	}
+
+	tasks[num].view();
+}
+
 void Employee::addTask(const Task& task) {
 	tasks.pushBack(task);
 }

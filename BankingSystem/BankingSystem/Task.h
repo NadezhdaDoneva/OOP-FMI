@@ -10,6 +10,7 @@ public:
 	void saveToFile(std::ofstream& ofs) const;
 	void readFromFile(std::ifstream& ifs);
 	void print() const;
+	void view() const;
 private:
 	MyString type = "Unknown";
 	MyString username = "Unknown";

@@ -157,15 +157,14 @@ void Application::help() {
 	}
 }
 
-const User* Application::getLoggedUser() const
-{
+User* Application::getLoggedUser() {
 	return logged;
 }
 
-User* Application::getLoggedUser()
-{
+const User* Application::getLoggedUser() const {
 	return logged;
 }
+
 
 LoggedUserType Application::getType() const
 {
@@ -250,6 +249,13 @@ void Application::change(const MyString& newBankName, const MyString& curBankNam
 	unsigned idx = getIdxOfBankByName(curBankName);
 	Task task("Change", logged->getUsername(), curBankName, accountNumber);
 	banks[idx].assignTask(task);
+}
+
+void Application::viewTask(unsigned num) const {
+	const User* curEmployee = getLoggedUser();
+	if (const Employee* cur = dynamic_cast<const Employee*>(curEmployee)) {
+		cur->viewTask(num);
+	}
 }
 
 //void Application::redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode) {

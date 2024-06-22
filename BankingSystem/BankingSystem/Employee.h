@@ -16,6 +16,7 @@ public:
 	void readFromFile(std::ifstream& ifs) override;
 
 	void printTasks() const;
+	void viewTask(unsigned num) const;
 
 	void addTask(const Task& task);
 	//User* clone() const override;

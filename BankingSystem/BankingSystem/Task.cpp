@@ -49,3 +49,9 @@ void Task::print() const {
 		std::cout << "Change - " << username << " wants to join." << newBankName << std::endl;
 	}
 }
+
+
+void Task::view() const {
+	std::cout << type << "Request from: " << std::endl;
+	std::cout << username;
+}
