@@ -8,5 +8,5 @@ public:
 	RegEmployeeCommand(const RegEmployeeCommand&) = delete;
 	RegEmployeeCommand& operator=(const RegEmployeeCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

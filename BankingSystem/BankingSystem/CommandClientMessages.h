@@ -8,5 +8,5 @@ public:
 	MessagesCommand(const MessagesCommand&) = delete;
 	MessagesCommand& operator=(const MessagesCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

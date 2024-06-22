@@ -1,10 +1,11 @@
 #include "CommandEmployeeTasks.h"
 
-void TasksCommand::execute(Application* app) {
+int TasksCommand::execute() {
 	try {
 		User* curEmployee = app->getLoggedUser();
 		if (Employee* cur = dynamic_cast<Employee*>(curEmployee)) {
 			cur->printTasks();
+			return 2;
 		}
 	}
 	catch (const std::runtime_error& err) {

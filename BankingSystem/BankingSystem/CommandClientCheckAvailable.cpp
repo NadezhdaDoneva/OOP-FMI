@@ -1,6 +1,6 @@
 #include "CommandClientCheckAvailable.h"
 
-void CheckAvailableCommand::execute(Application* app) {
+int CheckAvailableCommand::execute() {
 	MyString bankName;
 	unsigned accountNumber = 0;
 	std::cin >> bankName >> accountNumber;
@@ -10,6 +10,7 @@ void CheckAvailableCommand::execute(Application* app) {
 			double balance = cur->checkAvailable(bankName, accountNumber);
 			std::cout << balance;
 		}
+		return 1;
 	}
 	catch (const std::runtime_error& err) {
 		std::cout << err.what() << std::endl;

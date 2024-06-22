@@ -8,5 +8,5 @@ public:
 	LoginCommand(const LoginCommand&) = delete;
 	LoginCommand& operator=(const LoginCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

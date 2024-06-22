@@ -8,5 +8,5 @@ public:
 	ListCommand(const ListCommand&) = delete;
 	ListCommand& operator=(const ListCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

@@ -8,5 +8,5 @@ public:
 	RedeemCommand(const RedeemCommand&) = delete;
 	RedeemCommand& operator=(const RedeemCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

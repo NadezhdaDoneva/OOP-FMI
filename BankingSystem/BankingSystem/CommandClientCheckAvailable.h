@@ -8,5 +8,5 @@ public:
 	CheckAvailableCommand(const CheckAvailableCommand&) = delete;
 	CheckAvailableCommand& operator=(const CheckAvailableCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

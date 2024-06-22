@@ -9,5 +9,5 @@ public:
 	HandleNoneCommand(const HandleNoneCommand&) = delete;
 	HandleNoneCommand& operator=(const HandleNoneCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

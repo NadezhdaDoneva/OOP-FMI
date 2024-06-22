@@ -8,5 +8,5 @@ public:
 	RegThirdPartyCommand(const RegThirdPartyCommand&) = delete;
 	RegThirdPartyCommand& operator=(const RegThirdPartyCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

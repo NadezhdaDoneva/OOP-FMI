@@ -8,5 +8,5 @@ public:
 	ViewCommand(const ViewCommand&) = delete;
 	ViewCommand& operator=(const ViewCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

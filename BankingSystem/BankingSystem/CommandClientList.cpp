@@ -1,6 +1,6 @@
 #include "CommandClientList.h"
 
-void ListCommand::execute(Application* app) {
+int ListCommand::execute() {
 	MyString bankName;
 	std::cin >> bankName;
 	try {
@@ -8,6 +8,7 @@ void ListCommand::execute(Application* app) {
 		if (Client* cur = dynamic_cast<Client*>(curClient)) {
 			cur->list(bankName);
 		}
+		return 1;
 	}
 	catch (const std::runtime_error& err) {
 		std::cout << err.what() << std::endl;

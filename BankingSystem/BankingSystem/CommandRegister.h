@@ -9,5 +9,5 @@ public:
 	RegisterCommand(const RegisterCommand&) = delete;
 	RegisterCommand& operator=(const RegisterCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

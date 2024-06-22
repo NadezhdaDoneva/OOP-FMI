@@ -8,5 +8,5 @@ public:
 	CreateBankCommand(const CreateBankCommand&) = delete;
 	CreateBankCommand& operator=(const CreateBankCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

@@ -8,5 +8,5 @@ public:
 	TasksCommand(const TasksCommand&) = delete;
 	TasksCommand& operator=(const TasksCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

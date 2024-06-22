@@ -1,6 +1,6 @@
 #include "CommandRegisterClient.h"
 
-void RegClientCommand::execute(Application* app) {
+int RegClientCommand::execute() {
 	try {
 		MyString username, egn, password;
 		unsigned age;
@@ -16,6 +16,8 @@ void RegClientCommand::execute(Application* app) {
 
 		Client client(username, egn, age, password);
 		app->registerClient(std::move(client));
+		std::cout << "User successfully registered.\n";
+		return 0;
 	}
 	catch (const std::runtime_error& err) {
 		std::cout << err.what() << std::endl;

@@ -8,5 +8,5 @@ public:
 	OpenCommand(const OpenCommand&) = delete;
 	OpenCommand& operator=(const OpenCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

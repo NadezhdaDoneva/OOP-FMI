@@ -1,6 +1,6 @@
 #include "CommandRegisterEmployee.h"
 
-void RegEmployeeCommand::execute(Application* app) {
+int RegEmployeeCommand::execute() {
 	try {
 		MyString username, egn, password, bankName;
 		unsigned age;
@@ -18,6 +18,8 @@ void RegEmployeeCommand::execute(Application* app) {
 
 		Employee employee(username, egn, age, password, bankName);
 		app->registerEmployee(std::move(employee), bankName);
+		std::cout << "User successfully registered.\n";
+		return 0;
 	}
 	catch (const std::runtime_error& err) {
 		std::cout << err.what() << std::endl;

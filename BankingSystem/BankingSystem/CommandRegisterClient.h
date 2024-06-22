@@ -8,5 +8,5 @@ public:
 	RegClientCommand(const RegClientCommand&) = delete;
 	RegClientCommand& operator=(const RegClientCommand&) = delete;
 
-	void execute(Application* app) override;
+	int execute() override;
 };

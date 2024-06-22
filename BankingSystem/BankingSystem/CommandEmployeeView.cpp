@@ -1,6 +1,6 @@
 #include "CommandEmployeeView.h"
 
-void ViewCommand::execute(Application* app) {
+int ViewCommand::execute() {
 	unsigned num;
 	std::cin >> num;
 	try {
@@ -9,6 +9,7 @@ void ViewCommand::execute(Application* app) {
 			cur->viewTask(num);
 		}*/
 		app->viewTask(num);
+		return 2;
 	}
 	catch (const std::runtime_error& err) {
 		std::cout << err.what() << std::endl;

@@ -3,7 +3,7 @@
 #include "CommandRegisterEmployee.h"
 #include "CommandRegisterThirdParty.h"
 
-void RegisterCommand::execute(Application* app) {
+int RegisterCommand::execute() {
 	RegClientCommand rcc;
 	RegEmployeeCommand rec;
 	RegThirdPartyCommand rtc;
@@ -13,13 +13,14 @@ void RegisterCommand::execute(Application* app) {
 	std::cin >> n;
 	switch (n)
 	{
-	case 1: rcc.execute(app);
+	case 1: rcc.execute();
 		break;
-	case 2: rec.execute(app);
+	case 2: rec.execute();
 		break;
-	case 3: rtc.execute(app);
+	case 3: rtc.execute();
 	default:
 		std::cout << "Unknown command\n";
 		break;
 	}
+	return 0;
 }

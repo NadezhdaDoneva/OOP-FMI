@@ -1,6 +1,6 @@
 #include "CommandRegisterThirdParty.h"
 
-void RegThirdPartyCommand::execute(Application* app) {
+int RegThirdPartyCommand::execute() {
 	try {
 		MyString username, egn, password;
 		unsigned age;
@@ -16,6 +16,8 @@ void RegThirdPartyCommand::execute(Application* app) {
 
 		ThirdParty thirdParty(username, egn, age, password);
 		app->registerThirdParty(std::move(thirdParty));
+		std::cout << "User successfully registered.\n";
+		return 0;
 	}
 	catch (const std::runtime_error& err) {
 		std::cout << err.what() << std::endl;
