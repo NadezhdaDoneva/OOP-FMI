@@ -1,5 +1,6 @@
 #include "Client.h"
 #include <fstream>
+#include "UtilFuncs.h"
 
 Client::Client(const MyString& username, const MyString& egn, unsigned age, const MyString& password)
 	 : User(username, egn, age, password){}
@@ -82,16 +83,29 @@ void Client::openAccount(const MyString& bankName) {
 	Account newAcc;
 	Pair<MyString, Account> newBankAcc(bankName, newAcc);
 	bankAccounts.pushBack(newBankAcc);
-	MyString newMess = "You opened an account in" + bankName + "! Your account id is " + newAcc.getAccountNumAsStr();
+	MyString newMess = "You opened an account in" + bankName + "! Your account id is " + toString(newAcc.getAccountNumber()) + "\n";
 	messages.pushBack(newMess);
 }
 
 void Client::closeAccount(const MyString& bankName, unsigned accountNumber) {
-
+	int i = getIdxOfBankAccountByNameAndNumber(bankName, accountNumber);
+	bankAccounts.removeAt(i);
+	MyString newMess = "You closed an account in" + bankName + "With " + toString(accountNumber) + "account number." + "\n";
+	messages.pushBack(newMess);
 }
 
 void Client::changeAccount(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
 
+}
+
+int Client::getIdxOfBankAccountByNameAndNumber(const MyString& bankName, unsigned accountNumber) {
+	int bankAccCount = bankAccounts.getSize();
+	for (size_t i = 0; i < bankAccCount; i++) {
+		if (bankAccounts[i].getLhs() == bankName && bankAccounts[i].getRhs().getAccountNumber() == accountNumber) {
+			return i;
+		}
+	}
+	throw std::runtime_error("No account with these bankName and accNum.");
 }
 
 void Client::saveToFile(std::ofstream& ofs) const {

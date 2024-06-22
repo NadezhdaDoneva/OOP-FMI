@@ -31,6 +31,8 @@ public:
 	void closeAccount(const MyString& bankName, unsigned accountNumber);
 	void changeAccount(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
 
+	int getIdxOfBankAccountByNameAndNumber(const MyString& bankName, unsigned accountNumber);
+
 	void saveToFile(std::ofstream& ofs) const override;
 	void readFromFile(std::ifstream& ifs) override;
 
