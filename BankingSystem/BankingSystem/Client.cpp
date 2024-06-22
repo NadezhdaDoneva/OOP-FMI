@@ -95,7 +95,7 @@ void Client::closeAccount(const MyString& bankName, unsigned accountNumber) {
 }
 
 void Client::changeAccount(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
-
+	
 }
 
 int Client::getIdxOfBankAccountByNameAndNumber(const MyString& bankName, unsigned accountNumber) {

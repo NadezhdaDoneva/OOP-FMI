@@ -5,7 +5,7 @@ int RedeemCommand::execute() {
 	unsigned accountNumber;
 	std::cin >> bankName >> accountNumber >> verificationCode;
 	try {
-		User* curClient = app->getLoggedUser();
+		User* curClient = app->getLogedUser();
 		if (Client* cur = dynamic_cast<Client*>(curClient))
 			cur->redeem(bankName, accountNumber, verificationCode);
 		return 1;

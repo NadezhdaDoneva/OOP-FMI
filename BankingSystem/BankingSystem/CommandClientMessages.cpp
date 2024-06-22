@@ -2,7 +2,7 @@
 
 int MessagesCommand::execute() {
 	try {
-		User* curClient = app->getLoggedUser();
+		User* curClient = app->getLogedUser();
 		if (Client* cur = dynamic_cast<Client*>(curClient)) {
 			cur->printMessages();
 		}

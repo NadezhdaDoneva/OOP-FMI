@@ -84,7 +84,7 @@ void Application::logout() {
 }
 
 void Application::whoami() {
-	User* curUser = getLoggedUser();
+	User* curUser = getLogedUser();
 	if (curUser != nullptr) {
 		std::cout << "You are " << curUser->getUsername() << std::endl;
 	}
@@ -102,7 +102,7 @@ void Application::help() {
 	}
 }
 
-User* Application::getLoggedUser() {
+User* Application::getLogedUser() {
 	return logged;
 }
 
@@ -207,6 +207,7 @@ void Application::closeEmpl(const MyString& username, const MyString& bankName, 
 }
 
 void Application::changeEmpl(const MyString& username, const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
+
 	int idx = getIdxOfClientByName(username);
 	clientUsers[idx].changeAccount(newBankName, curBankName, accountNumber);
 }
@@ -231,8 +232,8 @@ void Application::viewTask(unsigned num) const {
 }
 
 void Application::approve(int n) {
-	const User* curEmployee = getLoggedUser();
-	if (const Employee* cur = dynamic_cast<const Employee*>(curEmployee)) {
+	User* curEmployee = getLogedUser();
+	if (Employee* cur = dynamic_cast<Employee*>(curEmployee)) {
 		Task curTask = cur->getTaskAtIdx(n);
 		if (curTask.getType() == "Open") {
 			openEmpl(curTask.getUsername(), curTask.getCurBankName());
@@ -243,6 +244,17 @@ void Application::approve(int n) {
 		else if (curTask.getType() == "Change") {
 			changeEmpl(curTask.getUsername(), curTask.getNewBankName(), curTask.getCurBankName(), curTask.getAccNum());
 		}
+		cur->finishTaskAtIdx(n);
+	}
+}
+
+void Application::disapprove(int id, const MyString& mess) {
+	User* curEmployee = getLogedUser();
+	if (Employee* cur = dynamic_cast<Employee*>(curEmployee)) {
+		Task curTask = cur->getTaskAtIdx(id);
+		int idxCl = getIdxOfClientByName(curTask.getUsername());
+		clientUsers[idxCl].sendMessage(mess);
+		cur->finishTaskAtIdx(id);
 	}
 }
 

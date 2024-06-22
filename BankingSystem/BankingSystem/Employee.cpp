@@ -56,6 +56,10 @@ const Task& Employee::getTaskAtIdx(int n) const {
 	return tasks[n];
 }
 
+void Employee::finishTaskAtIdx(int n) {
+	tasks.removeAt(n);
+}
+
 //User* Employee::clone() const {
 //	return new Employee(*this);
 //}

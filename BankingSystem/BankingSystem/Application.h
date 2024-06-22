@@ -33,7 +33,7 @@ public:
 	void help();
 
 	const User* getLoggedUser() const;
-	User* getLoggedUser();
+	User* getLogedUser();
 	LoggedUserType getType() const;
 	bool doesUserAlreadyExist(User&& user) const;
 	int getIdxOfBankByName(const MyString& bankName) const;
@@ -49,6 +49,7 @@ public:
 	void changeEmpl(const MyString& username, const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
 	void viewTask(unsigned num) const;
 	void approve(int n);
+	void disapprove(int id, const MyString& mess);
 	//void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
 
 	void addClient(const Client& client);

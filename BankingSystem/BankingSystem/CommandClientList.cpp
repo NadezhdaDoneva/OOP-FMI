@@ -4,7 +4,7 @@ int ListCommand::execute() {
 	MyString bankName;
 	std::cin >> bankName;
 	try {
-		User* curClient = app->getLoggedUser();
+		User* curClient = app->getLogedUser();
 		if (Client* cur = dynamic_cast<Client*>(curClient)) {
 			cur->list(bankName);
 		}

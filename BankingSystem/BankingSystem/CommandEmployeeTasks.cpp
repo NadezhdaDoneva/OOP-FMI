@@ -2,7 +2,7 @@
 
 int TasksCommand::execute() {
 	try {
-		User* curEmployee = app->getLoggedUser();
+		User* curEmployee = app->getLogedUser();
 		if (Employee* cur = dynamic_cast<Employee*>(curEmployee)) {
 			cur->printTasks();
 			return 2;
