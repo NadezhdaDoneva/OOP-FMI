@@ -53,9 +53,6 @@ void Application::login(const MyString& username, const MyString& password) {
 				type = LoggedUserType::employee;
 				return;
 			}
-			else {
-				throw std::runtime_error("wrong username or pass");
-			}
 		}
 	}
 
@@ -67,9 +64,6 @@ void Application::login(const MyString& username, const MyString& password) {
 			type = LoggedUserType::client;
 			return;
 		}
-		else {
-			throw std::runtime_error("wrong username or pass");
-		}
 	}
 
 	//search for a thirdParty with that username and pass
@@ -80,57 +74,8 @@ void Application::login(const MyString& username, const MyString& password) {
 			type = LoggedUserType::thirdParty;
 			return;
 		}
-		else {
-			throw std::runtime_error("wrong username or pass");
-		}
 	}
-}
-
-void Application::login(MyString&& username, MyString&& password) {
-	int banksCount = banks.getSize();
-
-	//search for employee with the same username and pass in each bank 
-	for (int i = 0; i < banksCount; i++) {
-		DynamicArray<Employee> employeesInCurBank = banks[i].getEmployees();
-		int employeesInCurBankCount = employeesInCurBank.getSize();
-
-		for (int j = 0; j < employeesInCurBankCount; j++) {
-			if (employeesInCurBank[j].getUsername() == username && employeesInCurBank[j].isValidPassword(password)) {
-				logged = &employeesInCurBank[j];
-				type = LoggedUserType::employee;
-				return;
-			}
-			else {
-				throw std::runtime_error("wrong username or pass");
-			}
-		}
-	}
-
-	//search for a client with that username and pass
-	int clientUsersCount = clientUsers.getSize();
-	for (int i = 0; i < clientUsersCount; i++) {
-		if (clientUsers[i].getUsername() == username && clientUsers[i].isValidPassword(password)) {
-			logged = &clientUsers[i];
-			type = LoggedUserType::client;
-			return;
-		}
-		else {
-			throw std::runtime_error("wrong username or pass");
-		}
-	}
-
-	//search for a thirdParty with that username and pass
-	int thirdPartyUsersCount = thirdPartyUsers.getSize();
-	for (int i = 0; i < thirdPartyUsersCount; i++) {
-		if (thirdPartyUsers[i].getUsername() == username && thirdPartyUsers[i].isValidPassword(password)) {
-			logged = &thirdPartyUsers[i];
-			type = LoggedUserType::thirdParty;
-			return;
-		}
-		else {
-			throw std::runtime_error("wrong username or pass");
-		}
-	}
+	throw std::runtime_error("wrong username or pass");
 }
 
 void Application::logout() {
@@ -141,19 +86,19 @@ void Application::logout() {
 void Application::whoami() {
 	User* curUser = getLoggedUser();
 	if (curUser != nullptr) {
-		std::cout << "You are " << curUser->getUsername();
+		std::cout << "You are " << curUser->getUsername() << std::endl;
 	}
 }
 
 void Application::help() {
 	if (type == LoggedUserType::client) {
-		std::cout << "Client help menu: ";
+		std::cout << "Client help menu: ... " << std::endl;
 	}
 	else if (type == LoggedUserType::employee) {
-		std::cout << "Employee help menu: ";
+		std::cout << "Employee help menu: ..." << std::endl;
 	}
 	else if (type == LoggedUserType::thirdParty) {
-		std::cout << "Third party help menu: ";
+		std::cout << "Third party help menu: ..." << std::endl;
 	}
 }
 
@@ -233,28 +178,71 @@ void Application::createBank(const MyString& bankName) {
 	banks.pushBack(newBank);
 }
 
-void Application::open(const MyString& bankName) {
+void Application::openCl(const MyString& bankName) {
 	unsigned idx = getIdxOfBankByName(bankName);
 	Task task("Open", logged->getUsername(), bankName);
 	banks[idx].assignTask(task);
 }
 
-void Application::close(const MyString& bankName, unsigned accountNumber) {
+void Application::closeCl(const MyString& bankName, unsigned accountNumber) {
 	unsigned idx = getIdxOfBankByName(bankName);
 	Task task("Close", logged->getUsername(), bankName, accountNumber);
 	banks[idx].assignTask(task);
 }
 
-void Application::change(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
+void Application::changeCl(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
 	unsigned idx = getIdxOfBankByName(curBankName);
 	Task task("Change", logged->getUsername(), curBankName, accountNumber);
 	banks[idx].assignTask(task);
 }
 
+void Application::openEmpl(const MyString& username, const MyString& bankName) {
+	int idx = getIdxOfClientByName(username);
+	clientUsers[idx].openAccount(bankName);
+}
+
+void Application::closeEmpl(const MyString& username, const MyString& bankName, unsigned accountNumber) {
+	int idx = getIdxOfClientByName(username);
+	clientUsers[idx].closeAccount(bankName, accountNumber);
+}
+
+void Application::changeEmpl(const MyString& username, const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
+	int idx = getIdxOfClientByName(username);
+	clientUsers[idx].changeAccount(newBankName, curBankName, accountNumber);
+}
+
+int Application::getIdxOfClientByName(const MyString& username) const {
+	int clientsCount = clientUsers.getSize();
+	for (int i = 0; i < clientsCount; i++) {
+		if (clientUsers[i].getUsername() == username)
+			return i;
+	}
+	throw std::runtime_error("there is no client with that username.");
+}
+
+
 void Application::viewTask(unsigned num) const {
 	const User* curEmployee = getLoggedUser();
 	if (const Employee* cur = dynamic_cast<const Employee*>(curEmployee)) {
-		cur->viewTask(num);
+		MyString clientUsername =  cur->viewTask(num);
+		int idx = getIdxOfClientByName(clientUsername);
+		std::cout << "EGN: " << clientUsers[idx].getEGN() << std::endl << "Age: " << clientUsers[idx].getAge() << std::endl;
+	}
+}
+
+void Application::approve(int n) {
+	const User* curEmployee = getLoggedUser();
+	if (const Employee* cur = dynamic_cast<const Employee*>(curEmployee)) {
+		Task curTask = cur->getTaskAtIdx(n);
+		if (curTask.getType() == "Open") {
+			openEmpl(curTask.getUsername(), curTask.getCurBankName());
+		}
+		else if (curTask.getType() == "Close") {
+			closeEmpl(curTask.getUsername(), curTask.getCurBankName(), curTask.getAccNum());
+		}
+		else if (curTask.getType() == "Change") {
+			changeEmpl(curTask.getUsername(), curTask.getNewBankName(), curTask.getCurBankName(), curTask.getAccNum());
+		}
 	}
 }
 

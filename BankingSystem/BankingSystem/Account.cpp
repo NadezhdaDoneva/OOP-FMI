@@ -2,6 +2,7 @@
 #include <cstdlib> 
 #include <time.h>
 #include <fstream>
+#include "UtilFuncs.h"
 
 Account::Account() {
 	srand(time(NULL));
@@ -22,8 +23,13 @@ unsigned Account::getAccountNumber() const {
 	return accountNumber;
 }
 
+
 double Account::getBalance() const {
 	return balance;
+}
+
+const MyString& Account::getAccountNumAsStr() const {
+	return MyString(toString(accountNumber));
 }
 
 void Account::addMoney(unsigned money) {

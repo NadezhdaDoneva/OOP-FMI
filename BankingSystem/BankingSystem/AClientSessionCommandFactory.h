@@ -8,6 +8,8 @@
 #include "CommandClientOpen.h"
 #include "CommandClientRedeem.h"
 #include "CommandLogout.h"
+#include "CommandWhoAmI.h"
+#include "CommandHelp.h"
 
 
 class ClientSessionCommandFactory : public CommandFactory
@@ -33,9 +35,11 @@ class ClientSessionCommandFactory : public CommandFactory
         case 7:
             return new RedeemCommand(); break;
         case 8:
-            return new LogoutCommand(); break;
+            return new WhoAmICommand(); break;
         case 9:
-            break;
+            return new HelpCommand(); break;
+        case 10:
+            return new LogoutCommand(); break;
         default:
             std::cout << "Unknown command!\n"; break;
         }
@@ -43,6 +47,6 @@ class ClientSessionCommandFactory : public CommandFactory
 
     MyString getCommandsDescription() const
     {
-       return "Choose: \n 1) open\n 2) close\n 3) check available\n 4) change\n 5) list\n 6) messages\n 7) redeem\n 8) logout\n 9) exit\n";
+       return "Choose: \n 1) open [bankname]\n 2) close [bankname, accNum]\n 3) check available [bankname, accNum]\n 4) change [newBankName, curBankName, accNum]\n 5) list [bankName]\n 6) messages\n 7) redeem [bankName, accNum, verCode]\n 8) whoami\n 9) help\n 10) logout\n";
     }
 };

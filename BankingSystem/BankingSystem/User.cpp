@@ -12,6 +12,10 @@ const MyString& User::getEGN() const {
 	return egn;
 }
 
+unsigned User::getAge() const {
+	return age;
+}
+
 void User::saveToFile(std::ofstream& ofs) const {
 	username.saveToFile(ofs);
 	egn.saveToFile(ofs);

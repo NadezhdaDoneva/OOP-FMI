@@ -74,6 +74,26 @@ void Client::printMessages() const {
 	}
 }
 
+void Client::sendMessage(const MyString& mess) {
+	messages.pushBack(mess);
+}
+
+void Client::openAccount(const MyString& bankName) {
+	Account newAcc;
+	Pair<MyString, Account> newBankAcc(bankName, newAcc);
+	bankAccounts.pushBack(newBankAcc);
+	MyString newMess = "You opened an account in" + bankName + "! Your account id is " + newAcc.getAccountNumAsStr();
+	messages.pushBack(newMess);
+}
+
+void Client::closeAccount(const MyString& bankName, unsigned accountNumber) {
+
+}
+
+void Client::changeAccount(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
+
+}
+
 void Client::saveToFile(std::ofstream& ofs) const {
 	User::saveToFile(ofs);
 	int messCount = messages.getSize();

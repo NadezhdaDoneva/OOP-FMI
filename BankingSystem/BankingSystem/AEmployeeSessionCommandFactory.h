@@ -10,8 +10,7 @@ class EmployeeSessionCommandFactory : public CommandFactory {
 		return nullptr;
 	}
 
-	MyString getCommandsDescription() const
-	{
-		return "Choose: \n 1) tasks\n 2) view\n 3) approve\n 4) disapprove\n 5) validate\n 6) logout\n 7) exit\n";
+	MyString getCommandsDescription() const {
+		return "Choose: \n 1) tasks\n 2) view [idx]\n 3) approve [idx]\n 4) disapprove [idx, message]\n 5) validate [idx]\n  7) whoami\n 8) help\n 9) logout\n";
 	}
 };

@@ -36,16 +36,24 @@ void Employee::printTasks() const {
 	}
 }
 
-void Employee::viewTask(unsigned num) const {
+MyString Employee::viewTask(unsigned num) const {
 	if (num > tasks.getSize()) {
 		throw std::runtime_error("no task with that id.");
 	}
 
-	tasks[num].view();
+	MyString clientUsername = tasks[num].view();
+	return clientUsername;
 }
 
 void Employee::addTask(const Task& task) {
 	tasks.pushBack(task);
+}
+
+const Task& Employee::getTaskAtIdx(int n) const {
+	if (n < 0 || n > tasks.getSize()) {
+		throw std::runtime_error("Unvalid task idx");
+	}
+	return tasks[n];
 }
 
 //User* Employee::clone() const {

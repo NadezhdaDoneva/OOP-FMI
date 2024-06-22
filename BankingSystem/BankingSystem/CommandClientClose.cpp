@@ -6,7 +6,7 @@ int CloseCommand::execute() {
 	std::cin >> bankName >> accountNumber;
 
 	try {
-		app->close(bankName, accountNumber);
+		app->closeCl(bankName, accountNumber);
 		return 1;
 	}
 	catch (const std::runtime_error& err) {

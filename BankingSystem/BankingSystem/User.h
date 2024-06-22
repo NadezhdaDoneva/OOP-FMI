@@ -8,6 +8,7 @@ public:
 
 	const MyString& getUsername() const;
 	const MyString& getEGN() const;
+	unsigned getAge() const;
 
 	/*virtual User* clone() const = 0;
 	virtual ~User() = default;*/

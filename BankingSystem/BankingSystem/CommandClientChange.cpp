@@ -6,7 +6,7 @@ int ChangeCommand::execute() {
 	std::cin >> newBankName >> curBankName >> accountNumber;
 
 	try {
-		app->change(newBankName, curBankName, accountNumber);
+		app->changeCl(newBankName, curBankName, accountNumber);
 		return 1;
 	}
 	catch (const std::runtime_error& err) {

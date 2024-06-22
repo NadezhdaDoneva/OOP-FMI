@@ -5,7 +5,7 @@ int OpenCommand::execute() {
 	std::cout << "Input bankname: ";
 	std::cin >> bankName;
 	try {
-		app->open(bankName);
+		app->openCl(bankName);
 		std::cout << "Successfully oppened an account.";
 		return 1;
 	}

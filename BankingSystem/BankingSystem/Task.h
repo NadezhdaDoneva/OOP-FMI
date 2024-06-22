@@ -1,6 +1,8 @@
 #pragma once
 #include "MyString.h"
 
+
+
 class Task {
 public:
 	Task() = default;
@@ -10,7 +12,12 @@ public:
 	void saveToFile(std::ofstream& ofs) const;
 	void readFromFile(std::ifstream& ifs);
 	void print() const;
-	void view() const;
+	MyString view() const;
+	const MyString& getType() const;
+	const MyString& getUsername() const;
+	const MyString& getCurBankName() const;
+	const MyString& getNewBankName() const;
+	unsigned getAccNum() const;
 private:
 	MyString type = "Unknown";
 	MyString username = "Unknown";

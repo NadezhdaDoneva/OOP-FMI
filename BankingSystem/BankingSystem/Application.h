@@ -28,7 +28,6 @@ public:
 	void registerThirdParty(ThirdParty&& thirdParty);
 
 	void login(const MyString& username, const MyString& password);
-	void login(MyString&& username, MyString&& password);
 	void logout();
 	void whoami();
 	void help();
@@ -38,12 +37,18 @@ public:
 	LoggedUserType getType() const;
 	bool doesUserAlreadyExist(User&& user) const;
 	int getIdxOfBankByName(const MyString& bankName) const;
+	int getIdxOfClientByName(const MyString& username) const;
 
 	void createBank(const MyString& bankName);
-	void open(const MyString& bankName);
-	void close(const MyString& bankName, unsigned accountNumber);
-	void change(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
+	void openCl(const MyString& bankName);
+	void closeCl(const MyString& bankName, unsigned accountNumber);
+	void changeCl(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
+
+	void openEmpl(const MyString& username, const MyString& bankName);
+	void closeEmpl(const MyString& username, const MyString& bankName, unsigned accountNumber);
+	void changeEmpl(const MyString& username, const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
 	void viewTask(unsigned num) const;
+	void approve(int n);
 	//void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
 
 	void addClient(const Client& client);

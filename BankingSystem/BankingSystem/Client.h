@@ -6,6 +6,7 @@
 #include "Pair.hpp"
 #include "Check.h"
 #include "Bank.h"
+//#include "UtilFuncs.h"
 
 class Client : public User {
 private:
@@ -24,6 +25,11 @@ public:
 	void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
 	void list(const MyString& bankName);
 	void printMessages() const;
+	void sendMessage(const MyString& mess);
+
+	void openAccount(const MyString& bankName);
+	void closeAccount(const MyString& bankName, unsigned accountNumber);
+	void changeAccount(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
 
 	void saveToFile(std::ofstream& ofs) const override;
 	void readFromFile(std::ifstream& ifs) override;

@@ -51,7 +51,28 @@ void Task::print() const {
 }
 
 
-void Task::view() const {
-	std::cout << type << "Request from: " << std::endl;
-	std::cout << username;
+MyString Task::view() const {
+	std::cout << type << " request from: " << std::endl;
+	std::cout << "Name: " << username << std::endl;
+	return username;
+}
+
+const MyString& Task::getType() const {
+	return type;
+}
+
+const MyString& Task::getUsername() const {
+	return username;
+}
+
+const MyString& Task::getCurBankName() const {
+	return curBankName;
+}
+
+const MyString& Task::getNewBankName() const {
+	return newBankName;
+}
+
+unsigned Task::getAccNum() const {
+	return accountNumber;
 }
