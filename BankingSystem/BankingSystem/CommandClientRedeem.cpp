@@ -6,7 +6,7 @@ int RedeemCommand::execute() {
 	std::cin >> bankName >> accountNumber >> verificationCode;
 	try {
 	    app->redeem(bankName, accountNumber, verificationCode);
-		std::cout << "You successfully redeemed the check";
+		std::cout << "You successfully redeemed the check" << std::endl;
 		return 1;
 	}
 	catch (const std::runtime_error& err) {

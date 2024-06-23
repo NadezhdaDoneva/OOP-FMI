@@ -83,7 +83,7 @@ void Bank::list(const MyString& username) const {
     int bankAccCount = bankAccounts.getSize();
     for (int i = 0; i < bankAccCount; i++) {
         if (bankAccounts[i].getLhs() == username) {
-            std::cout << bankName << " " << bankAccounts[i].getRhs().getAccountNumber() << std::endl;
+            std::cout << "Bank name: " << bankName << "Account Number: " << bankAccounts[i].getRhs().getAccountNumber() << std::endl;
         }
     }
 }

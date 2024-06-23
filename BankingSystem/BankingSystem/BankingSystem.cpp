@@ -2,21 +2,15 @@
 //
 
 #include <iostream>
-//#include "Client.h"
-#include "Application.h"
 #include "ASession.h"
 #include "ANoneSessionCommandFactory.h"
 
-void runBankingSystem()
-{
-    while (1)
-    {
+void runBankingSystem() {
         Session s(new NanSessionCommandFactory());
         s.handle();
-    }
 }
-int main()
-{
+
+int main() {
     runBankingSystem();
 }
 

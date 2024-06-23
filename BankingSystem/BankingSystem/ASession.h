@@ -24,5 +24,6 @@ public:
             delete current;
         }
     }
+private:
     CommandFactory* commandFactory;
 };
