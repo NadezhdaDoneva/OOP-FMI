@@ -20,15 +20,15 @@ unsigned getNumberLength(unsigned int n)
 	return res;
 }
 
-const MyString& toString(unsigned int n)
+MyString toString(unsigned int n)
 {
 	unsigned int len = getNumberLength(n);
-	MyString str;
+	char temp[1024];
 	for (int i = len - 1; i >= 0; i--)
 	{
-		str[i] = getCharFromDigit(n % 10);
+		temp[i] = getCharFromDigit(n % 10);
 		n /= 10;
 	}
-	str[len] = '\0';
-	return str;
+	temp[len] = '\0';
+	return MyString(temp);
 }
