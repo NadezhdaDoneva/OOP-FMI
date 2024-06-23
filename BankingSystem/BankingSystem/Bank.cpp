@@ -8,6 +8,11 @@ const DynamicArray<Employee>& Bank::getEmployees() const {
     return this->employees;
 }
 
+DynamicArray<Employee>& Bank::getEmployees() {
+    return employees;
+}
+
+
 
 void Bank::addEmployee(const Employee& employee) {
     employees.pushBack(employee);
@@ -68,7 +73,7 @@ MyString Bank::openAccount(const MyString& username) {
 }
 
 MyString Bank::closeAccount(const MyString& username, unsigned accNum) {
-    int idx = getIdxOfAccountByAccNum(accNum);
+    int idx = getIdxOfAccountByAccNumAndUsername(accNum, username);
     bankAccounts.removeAt(idx);
     MyString newMess = "You closed an account in " + bankName + " with " + toString(accNum) + " account number " + "\n";
     return newMess;

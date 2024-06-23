@@ -1,12 +1,9 @@
 #pragma once
 #include "MyString.h"
 #include "DynamicArray.hpp"
-//#include "Account.h"
 #include "User.h"
-//#include "Pair.hpp"
 #include "Check.h"
 #include "Bank.h"
-//#include "UtilFuncs.h"
 
 class Client : public User {
 private:

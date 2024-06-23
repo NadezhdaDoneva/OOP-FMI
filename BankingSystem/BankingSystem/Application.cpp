@@ -6,8 +6,7 @@ Application& Application::getInstance() {
 	return app;
 }
 
-const DynamicArray<Bank>& Application::getBanks() const
-{
+const DynamicArray<Bank>& Application::getBanks() const {
 	return this->banks;
 }
 
@@ -49,7 +48,8 @@ void Application::login(const MyString& username, const MyString& password) {
 
 		for (int j = 0; j < employeesInCurBankCount; j++) {
 			if (employeesInCurBank[j].getUsername() == username && employeesInCurBank[j].isValidPassword(password)) {
-				logged = &employeesInCurBank[j];
+				logged = &banks[i].getEmployees()[j];
+				//logged = &employeesInCurBank[j];
 				type = LoggedUserType::employee;
 				return;
 			}
@@ -209,7 +209,7 @@ void Application::openEmpl(const MyString& username, const MyString& bankName) {
 }
 
 void Application::closeEmpl(const MyString& username, const MyString& bankName, unsigned accountNumber) {
-	int idxB = getIdxOfBankByName(username);
+	int idxB = getIdxOfBankByName(bankName);
 	MyString newMess = banks[idxB].closeAccount(username, accountNumber);
 	int idxCl = getIdxOfClientByName(username);
 	clientUsers[idxCl].sendMessage(newMess);

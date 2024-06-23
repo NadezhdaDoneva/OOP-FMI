@@ -16,6 +16,7 @@ public:
 	Bank(const MyString& name);
 
 	const DynamicArray<Employee>& getEmployees() const;
+	DynamicArray<Employee>& getEmployees();
 
 	void addEmployee(const Employee& employee);
 	void addEmployee(Employee&& employee);

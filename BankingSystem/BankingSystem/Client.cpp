@@ -36,7 +36,7 @@ double Client::redeem(const MyString& verificationCode) {
 
 void Client::addCheck(const Check& check) {
 	checks.pushBack(check);
-	MyString mess = "You have a check assigned to you by" + check.getNameOfThirdParty();
+	MyString mess = "You have a check assigned to you by " + check.getNameOfThirdParty() + "\n";
 	sendMessage(mess);
 }
 
