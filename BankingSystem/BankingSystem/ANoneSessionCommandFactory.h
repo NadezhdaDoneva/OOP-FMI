@@ -24,6 +24,6 @@ class NanSessionCommandFactory : public CommandFactory
     }
     MyString getCommandsDescription() const
     {
-        return "Choose: \n 1) Register\n 2) Login\n 3) Create bank\n 4) Exit\n";
+        return "\nChoose: \n 1) Register\n 2) Login\n 3) Create bank\n 4) Exit\n";
     }
 };

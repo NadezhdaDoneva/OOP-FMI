@@ -9,4 +9,5 @@ public:
 	Command() { app = &Application::getInstance(); }
 	virtual ~Command() = default;
 	virtual int execute() = 0;
+	//
 };

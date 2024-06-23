@@ -6,6 +6,7 @@ int ApproveCommand::execute() {
 
 	try {
 		app->approve(n);
+		std::cout << "You succcessfully approved. \n";
 		return 2;
 	}
 	catch (const std::runtime_error& err) {

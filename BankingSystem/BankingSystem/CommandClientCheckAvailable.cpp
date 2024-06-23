@@ -6,7 +6,7 @@ int CheckAvailableCommand::execute() {
 	std::cin >> bankName >> accountNumber;
 	try {
 		double balance = app->checkAvailable(bankName, accountNumber);
-		std::cout << balance;
+		std::cout << balance << std::endl;
 		return 1;
 	}
 	catch (const std::runtime_error& err) {
