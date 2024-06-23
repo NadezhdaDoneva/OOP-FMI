@@ -196,26 +196,52 @@ void Application::changeCl(const MyString& newBankName, const MyString& curBankN
 	banks[idx].assignTask(task);
 }
 
+double Application::checkAvailable(const MyString& bankName, unsigned accountNumber) {
+	int idx = getIdxOfBankByName(bankName);
+	double balance = banks[idx].getBalanceByAccountNumber(accountNumber);
+	return balance;
+}
+
 void Application::openEmpl(const MyString& username, const MyString& bankName) {
-	int idx = getIdxOfClientByName(username);
-	clientUsers[idx].openAccount(bankName);
+	/*int idx = getIdxOfClientByName(username);
+	clientUsers[idx].openAccount(bankName);*/
+
+	int idxB = getIdxOfBankByName(bankName);
+	MyString newMess = banks[idxB].openAccount(username);
+	int idxCl = getIdxOfClientByName(username);
+	clientUsers[idxCl].sendMessage(newMess);
 }
 
 void Application::closeEmpl(const MyString& username, const MyString& bankName, unsigned accountNumber) {
-	int idx = getIdxOfClientByName(username);
-	clientUsers[idx].closeAccount(bankName, accountNumber);
+	int idxB = getIdxOfBankByName(username);
+	MyString newMess = banks[idxB].closeAccount(username, accountNumber);
+	int idxCl = getIdxOfClientByName(username);
+	clientUsers[idxCl].sendMessage(newMess);
 }
 
 void Application::changeEmpl(const MyString& username, const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
-
-	int idx = getIdxOfClientByName(username);
-	clientUsers[idx].changeAccount(newBankName, curBankName, accountNumber);
+	int idxCurBank = getIdxOfBankByName(curBankName);
+	int idxNewBank = getIdxOfBankByName(newBankName);
+	MyString curBankMess = banks[idxCurBank].removeBankAcc(username, curBankName, accountNumber);
+	MyString newBankMess = banks[idxCurBank].addBankAcc(username, newBankName);
+	int idxCl = getIdxOfClientByName(username);
+	clientUsers[idxCl].sendMessage(curBankMess);
+	clientUsers[idxCl].sendMessage(newBankMess);
 }
 
 int Application::getIdxOfClientByName(const MyString& username) const {
 	int clientsCount = clientUsers.getSize();
 	for (int i = 0; i < clientsCount; i++) {
 		if (clientUsers[i].getUsername() == username)
+			return i;
+	}
+	throw std::runtime_error("there is no client with that username.");
+}
+
+int Application::getIdxOfClientByEgn(const MyString& egn) const {
+	int clientsCount = clientUsers.getSize();
+	for (int i = 0; i < clientsCount; i++) {
+		if (clientUsers[i].getEGN() == egn)
 			return i;
 	}
 	throw std::runtime_error("there is no client with that username.");
@@ -231,6 +257,12 @@ void Application::viewTask(unsigned num) const {
 	}
 }
 
+void Application::list(const MyString& bankName) {
+	int idx = getIdxOfBankByName(bankName);
+	const User* curUser = getLoggedUser();
+	banks[idx].list(curUser->getUsername());
+}
+
 void Application::approve(int n) {
 	User* curEmployee = getLogedUser();
 	if (Employee* cur = dynamic_cast<Employee*>(curEmployee)) {
@@ -242,7 +274,12 @@ void Application::approve(int n) {
 			closeEmpl(curTask.getUsername(), curTask.getCurBankName(), curTask.getAccNum());
 		}
 		else if (curTask.getType() == "Change") {
-			changeEmpl(curTask.getUsername(), curTask.getNewBankName(), curTask.getCurBankName(), curTask.getAccNum());
+			if (curTask.getIsValidated()) {
+				changeEmpl(curTask.getUsername(), curTask.getNewBankName(), curTask.getCurBankName(), curTask.getAccNum());
+			}
+			else {
+				std::cout << "You shold validate first. \n";
+			}
 		}
 		cur->finishTaskAtIdx(n);
 	}
@@ -258,20 +295,36 @@ void Application::disapprove(int id, const MyString& mess) {
 	}
 }
 
-//void Application::redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode) {
-//	User* curClient = getLoggedUser();
-//	if (Client* cur = dynamic_cast<Client*>(curClient)) {
-//		if (cur->IdxOfBankWithThatAccountNum(bankName, accountNumber) != -1) {
-//			int idx = cur->getIdxOfCheckByCode(verificationCode);
-//			if (idx != -1) {
-//
-//			}
-//			else {
-//				throw std::runtime_error("Wrong code.");
-//			}
-//		}
-//	}
-//}
+bool Application::validate(int idx) {
+	return true;
+}
+
+void Application::sendCheck(double sum, const MyString& verificationCode, const MyString& egn) {
+	Check check(verificationCode, sum, getLoggedUser()->getUsername());
+	int idx = getIdxOfClientByEgn(egn);
+	clientUsers[idx].addCheck(check);
+}
+
+void Application::redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode) {
+	/*User* curClient = getLogedUser();
+	if (Client* cur = dynamic_cast<Client*>(curClient)) {
+		if (cur->IdxOfBankWithThatAccountNum(bankName, accountNumber) != -1) {
+			int idx = cur->getIdxOfCheckByCode(verificationCode);
+			if (idx != -1) {
+
+			}
+			else {
+				throw std::runtime_error("Wrong code.");
+			}
+		}
+	}*/
+	User* curClient = getLogedUser();
+	if (Client* cur = dynamic_cast<Client*>(curClient)) {
+		int moneyToAdd = cur->redeem(verificationCode);
+		int idx = getIdxOfBankByName(bankName);
+		banks[idx].addMoneyToBankAcc(accountNumber, cur->getUsername(), moneyToAdd);
+	}
+}
 
 
 void Application::addClient(const Client& client) {

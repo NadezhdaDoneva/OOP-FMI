@@ -11,6 +11,7 @@ public:
 	void readFromFile(std::ifstream& ifs);
 	const MyString& getCode() const;
 	unsigned getMoney() const;
+	const MyString& getNameOfThirdParty() const;
 private:
 	MyString code;
 	unsigned money = 0;

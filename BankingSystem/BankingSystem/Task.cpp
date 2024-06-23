@@ -28,6 +28,7 @@ void Task::saveToFile(std::ofstream& ofs) const {
 	curBankName.saveToFile(ofs);
 	newBankName.saveToFile(ofs);
 	ofs.write((const char*)&accountNumber, sizeof accountNumber);
+	ofs.write((const char*)&isValidated, sizeof isValidated);
 }
 
 void Task::readFromFile(std::ifstream& ifs) {
@@ -36,6 +37,7 @@ void Task::readFromFile(std::ifstream& ifs) {
 	curBankName.readFromFile(ifs);
 	newBankName.readFromFile(ifs);
 	ifs.read((char*)accountNumber, sizeof accountNumber);
+	ifs.read((char*)isValidated, sizeof isValidated);
 }
 
 void Task::print() const {
@@ -75,4 +77,9 @@ const MyString& Task::getNewBankName() const {
 
 unsigned Task::getAccNum() const {
 	return accountNumber;
+}
+
+bool Task::getIsValidated() const
+{
+	return false;
 }

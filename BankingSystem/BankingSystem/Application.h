@@ -36,21 +36,28 @@ public:
 	User* getLogedUser();
 	LoggedUserType getType() const;
 	bool doesUserAlreadyExist(User&& user) const;
+
 	int getIdxOfBankByName(const MyString& bankName) const;
 	int getIdxOfClientByName(const MyString& username) const;
+	int getIdxOfClientByEgn(const MyString& egn) const;
 
 	void createBank(const MyString& bankName);
 	void openCl(const MyString& bankName);
 	void closeCl(const MyString& bankName, unsigned accountNumber);
 	void changeCl(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
+	double checkAvailable(const MyString& bankName, unsigned accountNumber);
+	void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
 
 	void openEmpl(const MyString& username, const MyString& bankName);
 	void closeEmpl(const MyString& username, const MyString& bankName, unsigned accountNumber);
 	void changeEmpl(const MyString& username, const MyString& newBankName, const MyString& curBankName, unsigned accountNumber);
 	void viewTask(unsigned num) const;
+	void list(const MyString& bankName);
 	void approve(int n);
 	void disapprove(int id, const MyString& mess);
-	//void redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode);
+	bool validate(int idx);
+
+	void sendCheck(double sum, const MyString& verificationCode, const MyString& egn);
 
 	void addClient(const Client& client);
 	void addClient(Client&& client);

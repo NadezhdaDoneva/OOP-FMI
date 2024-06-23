@@ -1,34 +1,34 @@
 #include "Client.h"
 #include <fstream>
-#include "UtilFuncs.h"
+//#include "UtilFuncs.h"
 
 Client::Client(const MyString& username, const MyString& egn, unsigned age, const MyString& password)
 	 : User(username, egn, age, password){}
 
-int Client::IdxOfBankWithThatAccountNum(const MyString& bankName, unsigned accountNumber) const {
-	int countOfAccounts = bankAccounts.getSize();
-	if (countOfAccounts == 0) {
-		throw std::runtime_error("You have no accounts");
-	}
-	for (int i = 0; i < countOfAccounts; i++) {
-		MyString curBankName = bankAccounts[i].getLhs();
-		Account curAcc = bankAccounts[i].getRhs();
-		if (curBankName == bankName && curAcc.getAccountNumber() == accountNumber) {
-			return i;
-		}
-	}
-	return -1;
-}
+//int Client::IdxOfBankWithThatAccountNum(const MyString& bankName, unsigned accountNumber) const {
+//	int countOfAccounts = bankAccounts.getSize();
+//	if (countOfAccounts == 0) {
+//		throw std::runtime_error("You have no accounts");
+//	}
+//	for (int i = 0; i < countOfAccounts; i++) {
+//		MyString curBankName = bankAccounts[i].getLhs();
+//		Account curAcc = bankAccounts[i].getRhs();
+//		if (curBankName == bankName && curAcc.getAccountNumber() == accountNumber) {
+//			return i;
+//		}
+//	}
+//	return -1;
+//}
 
-double Client::checkAvailable(const MyString& bankName, unsigned accountNumber) const {
-	int idx = IdxOfBankWithThatAccountNum(bankName, accountNumber);
-	if (idx == -1) {
-		throw std::runtime_error("No such bank and accountNumber.");
-	}
-	else {
-		return bankAccounts[idx].getRhs().getBalance();
-	}
-}
+//double Client::checkAvailable(const MyString& bankName, unsigned accountNumber) const {
+//	int idx = IdxOfBankWithThatAccountNum(bankName, accountNumber);
+//	if (idx == -1) {
+//		throw std::runtime_error("No such bank and accountNumber.");
+//	}
+//	else {
+//		return bankAccounts[idx].getRhs().getBalance();
+//	}
+//}
 
 int Client::getIdxOfCheckByCode(const MyString& code) const {
 	int countOfChecks = checks.getSize();
@@ -40,33 +40,33 @@ int Client::getIdxOfCheckByCode(const MyString& code) const {
 			return i;
 		}
 	}
-	return -1;
+	throw std::runtime_error("No check with that code.");
 }
 
-void Client::redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode) {
-	int idxBankAccount = IdxOfBankWithThatAccountNum(bankName, accountNumber);
-	if (idxBankAccount != -1) {
-		int idxCheck = getIdxOfCheckByCode(verificationCode);
-		if (idxCheck != -1) {
-			bankAccounts[idxBankAccount].getRhs().addMoney(checks[idxCheck].getMoney());
-		}
-		else {
-			throw std::runtime_error("Wrong code.");
-		}
-	}
-	else {
-		throw std::runtime_error("No such account with that bankname and account number.");
-	}
-}
+//void Client::redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode) {
+//	int idxBankAccount = IdxOfBankWithThatAccountNum(bankName, accountNumber);
+//	if (idxBankAccount != -1) {
+//		int idxCheck = getIdxOfCheckByCode(verificationCode);
+//		if (idxCheck != -1) {
+//			bankAccounts[idxBankAccount].getRhs().addMoney(checks[idxCheck].getMoney());
+//		}
+//		else {
+//			throw std::runtime_error("Wrong code.");
+//		}
+//	}
+//	else {
+//		throw std::runtime_error("No such account with that bankname and account number.");
+//	}
+//}
 
-void Client::list(const MyString& bankName) {
-	int bankAccountsCount = bankAccounts.getSize();
-	for (int i = 0; i < bankAccountsCount; i++) {
-		if (bankAccounts[i].getLhs() == bankName) {
-			std::cout << bankAccounts[i].getLhs() << " " << bankAccounts[i].getRhs().getAccountNumber() << std::endl;
-		}
-	}
-}
+//void Client::list(const MyString& bankName) {
+//	int bankAccountsCount = bankAccounts.getSize();
+//	for (int i = 0; i < bankAccountsCount; i++) {
+//		if (bankAccounts[i].getLhs() == bankName) {
+//			std::cout << bankAccounts[i].getLhs() << " " << bankAccounts[i].getRhs().getAccountNumber() << std::endl;
+//		}
+//	}
+//}
 
 void Client::printMessages() const {
 	int messagesCount = messages.getSize();
@@ -79,34 +79,45 @@ void Client::sendMessage(const MyString& mess) {
 	messages.pushBack(mess);
 }
 
-void Client::openAccount(const MyString& bankName) {
-	Account newAcc;
-	Pair<MyString, Account> newBankAcc(bankName, newAcc);
-	bankAccounts.pushBack(newBankAcc);
-	MyString newMess = "You opened an account in" + bankName + "! Your account id is " + toString(newAcc.getAccountNumber()) + "\n";
-	messages.pushBack(newMess);
+double Client::redeem(const MyString& verificationCode) {
+	int idx = getIdxOfCheckByCode(verificationCode);
+	return checks[idx].getMoney();
 }
 
-void Client::closeAccount(const MyString& bankName, unsigned accountNumber) {
-	int i = getIdxOfBankAccountByNameAndNumber(bankName, accountNumber);
-	bankAccounts.removeAt(i);
-	MyString newMess = "You closed an account in" + bankName + "With " + toString(accountNumber) + "account number." + "\n";
-	messages.pushBack(newMess);
+void Client::addCheck(const Check& check) {
+	checks.pushBack(check);
+	MyString mess = "You have a check assigned to you by" + check.getNameOfThirdParty();
+	sendMessage(mess);
 }
 
-void Client::changeAccount(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
-	
-}
+//void Client::openAccount(const MyString& bankName) {
+//	Account newAcc;
+//	Pair<MyString, Account> newBankAcc(bankName, newAcc);
+//	bankAccounts.pushBack(newBankAcc);
+//	MyString newMess = "You opened an account in" + bankName + "! Your account id is " + toString(newAcc.getAccountNumber()) + "\n";
+//	messages.pushBack(newMess);
+//}
 
-int Client::getIdxOfBankAccountByNameAndNumber(const MyString& bankName, unsigned accountNumber) {
-	int bankAccCount = bankAccounts.getSize();
-	for (size_t i = 0; i < bankAccCount; i++) {
-		if (bankAccounts[i].getLhs() == bankName && bankAccounts[i].getRhs().getAccountNumber() == accountNumber) {
-			return i;
-		}
-	}
-	throw std::runtime_error("No account with these bankName and accNum.");
-}
+//void Client::closeAccount(const MyString& bankName, unsigned accountNumber) {
+//	int i = getIdxOfBankAccountByNameAndNumber(bankName, accountNumber);
+//	bankAccounts.removeAt(i);
+//	MyString newMess = "You closed an account in" + bankName + "With " + toString(accountNumber) + "account number." + "\n";
+//	messages.pushBack(newMess);
+//}
+
+//void Client::changeAccount(const MyString& newBankName, const MyString& curBankName, unsigned accountNumber) {
+//	
+//}
+//
+//int Client::getIdxOfBankAccountByNameAndNumber(const MyString& bankName, unsigned accountNumber) {
+//	int bankAccCount = bankAccounts.getSize();
+//	for (size_t i = 0; i < bankAccCount; i++) {
+//		if (bankAccounts[i].getLhs() == bankName && bankAccounts[i].getRhs().getAccountNumber() == accountNumber) {
+//			return i;
+//		}
+//	}
+//	throw std::runtime_error("No account with these bankName and accNum.");
+//}
 
 void Client::saveToFile(std::ofstream& ofs) const {
 	User::saveToFile(ofs);
@@ -115,12 +126,12 @@ void Client::saveToFile(std::ofstream& ofs) const {
 	for (int i = 0; i < messCount; i++) {
 		messages[i].saveToFile(ofs);
 	}
-	int bankAccountsCount = bankAccounts.getSize();
+	/*int bankAccountsCount = bankAccounts.getSize();
 	ofs.write((const char*)&bankAccountsCount, sizeof bankAccountsCount);
 	for (int i = 0; i < bankAccountsCount; i++) {
 		bankAccounts[i].getLhs().saveToFile(ofs);
 		bankAccounts[i].getRhs().saveToFile(ofs);
-	}
+	}*/
 	int checksCount = checks.getSize();
 	ofs.write((const char*)&checksCount, sizeof checksCount);
 	for (int i = 0; i < checksCount; i++) {
@@ -135,12 +146,12 @@ void Client::readFromFile(std::ifstream& ifs) {
 	for (int i = 0; i < messCount; i++) {
 		ifs.read((char*)&messages[i], sizeof messages[i]);
 	}
-	int bankAccountsCount = 0;
+	/*int bankAccountsCount = 0;
 	ifs.read((char*)&bankAccountsCount, sizeof bankAccountsCount);
 	for (int i = 0; i < bankAccountsCount; i++) {
 		ifs.read((char*)&bankAccounts[i].getLhs(), sizeof bankAccounts[i].getLhs());
 		bankAccounts[i].getRhs().readFromFile(ifs);
-	}
+	}*/
 	int  checksCount = 0;
 	ifs.read((char*)&checksCount, sizeof checksCount);
 	for (int i = 0; i < checksCount; i++) {

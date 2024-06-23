@@ -18,12 +18,14 @@ public:
 	const MyString& getCurBankName() const;
 	const MyString& getNewBankName() const;
 	unsigned getAccNum() const;
+	bool getIsValidated() const;
 private:
 	MyString type = "Unknown";
 	MyString username = "Unknown";
 	MyString curBankName = "Unknown";
 	MyString newBankName = "Unknown";
 	unsigned accountNumber = 0;
+	bool isValidated = false;
 	//const Client* client = nullptr
 	//MyString details
 };

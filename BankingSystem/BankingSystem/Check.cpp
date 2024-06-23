@@ -8,10 +8,12 @@ Check::Check(const MyString& code, unsigned money, const MyString& nameOfThirdPa
 }
 
 void Check::setCode(const MyString& newCode) {
-	if (newCode.getSize() == CODE_SIZE) {
+	if (newCode.getSize() == 3) {
 		code = newCode;
 	}
-	throw std::length_error("The code should have length = 3");
+	else {
+		throw std::runtime_error("The code should have length = 3");
+	}
 }
 
 void Check::saveToFile(std::ofstream& ofs) const {
@@ -32,4 +34,8 @@ const MyString& Check::getCode() const {
 
 unsigned Check::getMoney() const {
 	return money;
+}
+
+const MyString& Check::getNameOfThirdParty() const {
+	return nameOfThirdParty;
 }

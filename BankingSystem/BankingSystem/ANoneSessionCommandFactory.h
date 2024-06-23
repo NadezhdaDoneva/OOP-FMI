@@ -15,10 +15,10 @@ class NanSessionCommandFactory : public CommandFactory
 
         switch (n)
         {
-        case 1: return new RegisterCommand();
-        case 2: return new LoginCommand();
-        case 3: return new CreateBankCommand();
-        case 4: return nullptr;
+        case 1: return new RegisterCommand(); break;
+        case 2: return new LoginCommand(); break;
+        case 3: return new CreateBankCommand(); break;
+        case 4: return nullptr; break;
         default: std::cout << "Unknown command!\n"; break;
         }
     }
