@@ -6,16 +6,13 @@ class Session
 {
 
 public:
-    Session(CommandFactory* commandFactory) : commandFactory(commandFactory) {} //clone
-    void handle()
-    {
+    Session(CommandFactory* commandFactory) : commandFactory(commandFactory) {}
+    void handle() {
         std::cout << commandFactory->getCommandsDescription() << std::endl;
 
-        while (true)
-        {
+        while (true) {
             Command* current = commandFactory->getCommand();
-            if (!current)
-            {
+            if (!current) {
                 break;
             }
             int code = current->execute();
