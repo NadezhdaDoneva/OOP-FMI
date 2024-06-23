@@ -10,9 +10,6 @@ public:
 	const MyString& getEGN() const;
 	unsigned getAge() const;
 
-	/*virtual User* clone() const = 0;
-	virtual ~User() = default;*/
-
 	virtual void saveToFile(std::ofstream& ofs) const;
 	virtual void readFromFile(std::ifstream& ifs);
 

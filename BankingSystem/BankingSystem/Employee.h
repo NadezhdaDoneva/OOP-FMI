@@ -21,8 +21,6 @@ public:
 	void addTask(const Task& task);
 	const Task& getTaskAtIdx(int n) const;
 	void finishTaskAtIdx(int n);
-	//User* clone() const override;
-	//add task
 
 private:
 	MyString bankName;

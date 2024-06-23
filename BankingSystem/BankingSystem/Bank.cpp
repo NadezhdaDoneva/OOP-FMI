@@ -4,21 +4,10 @@
 
 Bank::Bank(const MyString& name) : bankName(name){}
 
-//const DynamicArray<Client>& Bank::getClients() const {
-//    return this->clients;
-//}
-
 const DynamicArray<Employee>& Bank::getEmployees() const {
     return this->employees;
 }
 
-//void Bank::addClient(const Client& client) {
-//    clients.pushBack(client);
-//}
-//
-//void Bank::addClient(Client&& client){
-//    clients.pushBack(std::move(client));
-//}
 
 void Bank::addEmployee(const Employee& employee) {
     employees.pushBack(employee);

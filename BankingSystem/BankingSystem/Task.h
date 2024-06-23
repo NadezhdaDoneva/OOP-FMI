@@ -26,6 +26,4 @@ private:
 	MyString newBankName = "Unknown";
 	unsigned accountNumber = 0;
 	bool isValidated = false;
-	//const Client* client = nullptr
-	//MyString details
 };

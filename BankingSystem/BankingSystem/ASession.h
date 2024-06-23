@@ -26,5 +26,3 @@ public:
     }
     CommandFactory* commandFactory;
 };
-
-//da smenq na int-ove vuv vs komandi

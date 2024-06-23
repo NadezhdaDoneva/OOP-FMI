@@ -166,7 +166,6 @@ int Application::getIdxOfBankByName(const MyString& bankName) const {
 }
 
 void Application::createBank(const MyString& bankName) {
-	//check if there is an existing bank with the same name
 	int countOfBanks = banks.getSize();
 	for (size_t i = 0; i < countOfBanks; i++) {
 		if (banks[i].getBankName() == bankName) {
@@ -203,9 +202,6 @@ double Application::checkAvailable(const MyString& bankName, unsigned accountNum
 }
 
 void Application::openEmpl(const MyString& username, const MyString& bankName) {
-	/*int idx = getIdxOfClientByName(username);
-	clientUsers[idx].openAccount(bankName);*/
-
 	int idxB = getIdxOfBankByName(bankName);
 	MyString newMess = banks[idxB].openAccount(username);
 	int idxCl = getIdxOfClientByName(username);
@@ -306,18 +302,6 @@ void Application::sendCheck(double sum, const MyString& verificationCode, const 
 }
 
 void Application::redeem(const MyString& bankName, unsigned accountNumber, const MyString& verificationCode) {
-	/*User* curClient = getLogedUser();
-	if (Client* cur = dynamic_cast<Client*>(curClient)) {
-		if (cur->IdxOfBankWithThatAccountNum(bankName, accountNumber) != -1) {
-			int idx = cur->getIdxOfCheckByCode(verificationCode);
-			if (idx != -1) {
-
-			}
-			else {
-				throw std::runtime_error("Wrong code.");
-			}
-		}
-	}*/
 	User* curClient = getLogedUser();
 	if (Client* cur = dynamic_cast<Client*>(curClient)) {
 		int moneyToAdd = cur->redeem(verificationCode);
@@ -371,20 +355,6 @@ void Application::load() {
 		thirdPartyUsers.pushBack(std::move(tr));
 	}
 	tif.close();
-
-	//Load checks
-	/*std::ifstream chif("clients.dat", std::ios::in | std::ios::binary);
-	if (!chif.is_open())
-		throw std::runtime_error("Can't open the file!");
-	int checksCount = 0;
-	chif.read((char*)&checksCount, sizeof checksCount);
-	for (int i = 0; i < checksCount; i++)
-	{
-		Check ch;
-		ch.readFromFile(chif);
-		checks.pushBack(std::move(ch));
-	}
-	chif.close();*/
 
 	//Load Banks
 	std::ifstream bif("banks.dat", std::ios::out | std::ios::binary);
@@ -480,14 +450,4 @@ void Application::save() const {
 	for (int i = 0; i < thirdPartyCount; i++)
 		thirdPartyUsers[i].saveToFile(tof);
 	tof.close();
-
-	//Save checks
-	/*std::ofstream chof("checks.dat", std::ios::out | std::ios::binary);
-	if (!chof.is_open())
-		throw std::runtime_error("Can't open the file!");
-	int checksCount = checks.getSize();
-	chof.write((const char*)&checksCount, sizeof checksCount);
-	for (int i = 0; i < checksCount; i++)
-		checks[i].saveToFile(chof);
-	chof.close();*/
 }

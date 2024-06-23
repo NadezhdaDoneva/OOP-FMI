@@ -21,6 +21,6 @@ class ThirdPartySessionCommandFactory : public CommandFactory {
 
 	MyString getCommandsDescription() const
 	{
-		return "Choose: \n 1) sendCheck\n 2) whoami\n 3) help\n 4) logout\n";
+		return "Choose: \n 1) sendCheck [sum, verification code, egn]\n 2) whoami\n 3) help\n 4) logout\n";
 	}
 };

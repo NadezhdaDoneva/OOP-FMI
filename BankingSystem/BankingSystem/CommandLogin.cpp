@@ -8,7 +8,7 @@ int LoginCommand::execute() {
 	std::cin >> password;
 
 	try {
-		app->login(std::move(username), std::move(password)); //връща вида на потребителя, който се е логнал
+		app->login(std::move(username), std::move(password));
 		LoggedUserType loggedUserType = app->getType();
 		std::cout << "User successfylly logged.\n";
 

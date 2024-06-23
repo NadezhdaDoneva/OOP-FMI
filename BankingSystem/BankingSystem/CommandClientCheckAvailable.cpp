@@ -5,11 +5,6 @@ int CheckAvailableCommand::execute() {
 	unsigned accountNumber = 0;
 	std::cin >> bankName >> accountNumber;
 	try {
-		/*User* curClient = app->getLogedUser();
-		if (Client* cur = dynamic_cast<Client*>(curClient)) {
-			double balance = cur->checkAvailable(bankName, accountNumber);
-			std::cout << balance;
-		}*/
 		double balance = app->checkAvailable(bankName, accountNumber);
 		std::cout << balance;
 		return 1;

@@ -70,8 +70,6 @@ private:
 	DynamicArray<Bank> banks;
 	DynamicArray<ThirdParty> thirdPartyUsers;
 	DynamicArray<Client> clientUsers;
-	//DynamicArray<Check> checks;
-	//DynamicArray<PolymorphicPtr><User> users
 	User* logged = nullptr;
 	LoggedUserType type = LoggedUserType::none;
 
