@@ -60,6 +60,10 @@ void Employee::finishTaskAtIdx(int n) {
 	tasks.removeAt(n);
 }
 
+void Employee::validateTask(int idx) {
+	tasks[idx].setValidated();
+}
+
 //User* Employee::clone() const {
 //	return new Employee(*this);
 //}

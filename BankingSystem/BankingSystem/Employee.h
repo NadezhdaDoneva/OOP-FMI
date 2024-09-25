@@ -21,6 +21,7 @@ public:
 	void addTask(const Task& task);
 	const Task& getTaskAtIdx(int n) const;
 	void finishTaskAtIdx(int n);
+	void validateTask(int idx);
 
 private:
 	MyString bankName;

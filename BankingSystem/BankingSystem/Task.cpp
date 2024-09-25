@@ -83,3 +83,7 @@ bool Task::getIsValidated() const
 {
 	return false;
 }
+
+void Task::setValidated() {
+	isValidated = true;
+}

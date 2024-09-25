@@ -19,6 +19,7 @@ public:
 	const MyString& getNewBankName() const;
 	unsigned getAccNum() const;
 	bool getIsValidated() const;
+	void setValidated();
 private:
 	MyString type = "Unknown";
 	MyString username = "Unknown";

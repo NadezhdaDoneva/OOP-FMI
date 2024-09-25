@@ -155,13 +155,11 @@ int Application::getIdxOfBankByName(const MyString& bankName) const {
 	if (countOfBanks == 0) {
 		throw std::runtime_error("There are no existing banks.");
 	}
-
 	for (size_t i = 0; i < countOfBanks; i++) {
 		if (banks[i].getBankName() == bankName) {
 			return i;
 		}
 	}
-
 	throw std::runtime_error("No bank with such name.");
 }
 
@@ -292,6 +290,10 @@ void Application::disapprove(int id, const MyString& mess) {
 }
 
 bool Application::validate(int idx) {
+	User* curEmployee = getLogedUser();
+	if (Employee* cur = dynamic_cast<Employee*>(curEmployee)) {
+		cur->validateTask(idx);
+	}
 	return true;
 }
 

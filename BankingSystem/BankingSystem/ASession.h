@@ -2,9 +2,7 @@
 #include "ACommadFactory.h"
 #include "ACommandFactoryFactory.h"
 
-class Session
-{
-
+class Session {
 public:
     Session(CommandFactory* commandFactory) : commandFactory(commandFactory) {}
     void handle() {
